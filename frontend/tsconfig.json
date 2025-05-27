@@ -16,7 +16,21 @@
     "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022"
+    "module": "ES2022",
+    "paths": {
+      "@lib/core/environments": [
+        "./libs/core/environments/src/index.ts"
+      ],
+      "@lib/auth": [
+        "./libs/auth/src/index.ts"
+      ],
+      "@lib/fridaymake-up/layouts": [
+        "./libs/firdaymake-up/layouts/src/index.ts"
+      ],
+      "@lib/shared/header": [
+        "./libs/shared/header/src/index.ts"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
