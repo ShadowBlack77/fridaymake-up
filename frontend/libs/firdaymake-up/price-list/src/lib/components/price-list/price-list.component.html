@@ -1,0 +1,22 @@
+@if (priceList$ | async; as priceList) {
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    @for (offer of priceList; track offer.id) {
+      <div class="bg-black rounded-md text-white border border-black">
+        <img 
+          [ngSrc]="offer.imageUrl"
+          width="400"
+          height="200"
+          priority
+          alt="offer-image"
+          class="w-full rounded-md"
+        />
+        <div class="p-4">
+          <h2 class="text-xl mb-4">{{ offer.name }} - <strong>{{ offer.price | currency }}</strong></h2>
+          <p class="text-justify">{{ offer.description }}</p>
+        </div>
+      </div>
+    } @empty {
+      <p>Brak dostępnych ofert</p>
+    }
+  </div>
+}

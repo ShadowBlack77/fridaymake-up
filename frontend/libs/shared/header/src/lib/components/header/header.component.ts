@@ -6,6 +6,7 @@ interface navigationItem {
   readonly id: number;
   readonly link: string;
   readonly label: string;
+  readonly icon: string;
 }
 
 @Component({
@@ -24,12 +25,44 @@ export class HeaderComponent {
     {
       id: 1,
       link: '',
-      label: 'Home'
+      label: 'Home',
+      icon: 'bi-house'
     },
     {
       id: 2,
       link: 'price-list',
-      label: 'Cennik'
+      label: 'Cennik',
+      icon: 'bi-card-checklist'
+    },
+    {
+      id: 3,
+      link: 'portfolio',
+      label: 'Portfolio',
+      icon: 'bi-grid'
+    },
+    {
+      id: 4,
+      link: 'certificates',
+      label: 'Certyfikaty',
+      icon: 'bi-file-check'
+    },
+    {
+      id: 5,
+      link: 'informations',
+      label: 'Informacje',
+      icon: 'bi-info-circle'
+    },
+    {
+      id: 6,
+      link: 'statute',
+      label: 'Regulamin',
+      icon: 'bi-lock'
+    },
+    {
+      id: 7,
+      link: 'faqs',
+      label: 'FAQs',
+      icon: 'bi-question-circle'
     }
   ])
 

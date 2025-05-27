@@ -8,14 +8,19 @@ import { ENVIRONMENTS_TOKEN } from '@lib/core/environments';
 import { Environments } from '../environments/environments';
 import { provideHttpClient } from '@angular/common/http';
 import { AuthService } from '@lib/auth';
+import { PriceListEffects, priceListReducer } from '@lib/fridaymake-up/price-list';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
     provideHttpClient(),
-    provideStore(), 
-    provideEffects(),
+    provideStore({
+      priceList: priceListReducer
+    }), 
+    provideEffects([
+      PriceListEffects
+    ]),
     {
       provide: ENVIRONMENTS_TOKEN,
       useValue: {

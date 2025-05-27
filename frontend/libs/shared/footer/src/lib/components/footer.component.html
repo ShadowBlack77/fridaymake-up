@@ -1,0 +1,59 @@
+<footer 
+  class="px-8 md:px-16 lg:px-32 xl:px-48 py-16"
+  [ngClass]="{
+    'bg-black text-white': footerStyle() === 'dark',
+    'bg-[radial-gradient(circle_at_50%_50%,_#f7d3b5,_#ada687)] text-gray-600': footerStyle() === 'main'
+  }"
+>
+  <div class="grid grid-cols-1 sm:grid-cols-2 mb-16">
+    <div class="mb-4 sm:mb-0">
+      <p>© {{ currentYear() }} ShadowBlack</p>
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2">
+      <div class="mb-4 lg:mb-0 lg:me-4">
+        <div>
+          <h5 class="text-xl">Zarezeruj wizytę</h5>
+          <ul>
+            <li>
+              <p>ul. Miła 8, 41-412 Mysłowice</p>
+            </li>
+            <li>
+              <p>Telefon: (+48)695 102 403</p>
+            </li>
+            <li>
+              <p>E-mail: {{ 'info.fridaymakeup@gmail.com' }}</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <h5 class="text-xl">Godziny otwarcia</h5>
+        <ul>
+          <li>
+            <p>Cały tydzień: 12:00-20:00</p>
+          </li>
+          <li>
+            <p>Godziny dotyczą kontaktu!</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-center">
+    <div>
+      <a href="#">
+        <i class="bi bi-facebook text-2xl"></i>
+      </a>
+    </div>
+    <div>
+      <a href="#">
+        <i class="bi bi-instagram text-2xl mx-4"></i>
+      </a>
+    </div>
+    <div>
+      <a href="#">
+        <i class="bi bi-tiktok text-2xl"></i>
+      </a>
+    </div>
+  </div>
+</footer> 

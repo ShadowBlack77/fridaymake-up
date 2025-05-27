@@ -1,7 +1,7 @@
-<div class="bg-[radial-gradient(circle_at_50%_50%,_#f7d3b5,_#ada687)] px-96">
+<div class="bg-[radial-gradient(circle_at_50%_50%,_#f7d3b5,_#ada687)] px-8 md:px-16 lg:px-32 xl:px-48">
   <div class="flex justify-center py-12">
-    <div class="grid grid-cols-2 3 gap-x-4 justify-items-center">
-      <div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 3 gap-x-4 justify-items-center items-center">
+      <div class="order-2 sm:order-1">
         <div class="mb-8">
           <h2 class="text-5xl mb-4">
             Kreatywne i Precyzyjne Wykonanie Wizażu
@@ -14,7 +14,7 @@
           <a routerLink="/questionnaire" class="bg-black text-white rounded-md px-4 py-2">Zapisz się</a>
         </div>
       </div>
-      <div>
+      <div class="order-1 sm:order-2 mb-8 md:mb-0">
         <img 
           ngSrc="https://res.cloudinary.com/dfv7maike/image/upload/w_1200,c_fill/hero-image_cl5qmd.jpg"
           width="400"
@@ -27,7 +27,7 @@
     </div>
   </div>
   <div class="py-16">
-    <div class="grid grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div>
         <div class="text-white bg-black w-[40px] h-[40px] rounded-md flex justify-center items-center text-lg mb-2">
           <i class="bi bi-trophy"></i>
@@ -58,10 +58,10 @@
     </div>
   </div>
 </div>
-<div class="px-96 bg-black">
+<div class="bg-black px-8 md:px-16 lg:px-32 xl:px-48">
   <div class="flex justify-center py-12">
-    <div class="grid grid-cols-2 3 gap-x-4">
-      <div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 3 gap-x-4 justify-items-center">
+      <div class="mb-4 lg:mb-0">
         <img 
           ngSrc="https://res.cloudinary.com/dfv7maike/image/upload/v1739556670/makijaz-fotograficzny_aatgeq.jpg"
           width="400"
@@ -87,12 +87,12 @@
     </div>
   </div>
 </div>
-<div class="bg-[radial-gradient(circle_at_50%_50%,_#f7d3b5,_#ada687)] px-96 py-16">
+<div class="bg-[radial-gradient(circle_at_50%_50%,_#f7d3b5,_#ada687)] px-8 md:px-16 lg:px-32 xl:px-48 py-16">
   <div class="mb-8">
     <h2 class="text-center text-3xl">U nas znajdziesz wszystko czego potrzebujesz</h2>
   </div>
-  <div>
-    <div class="grid grid-cols-3 gap-16">
+  <div class="mb-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-16">
       <div class="bg-black rounded-md">
         <img 
           ngSrc="https://res.cloudinary.com/dfv7maike/image/upload/v1739556132/makijaz-sylwestrowy_rxvxrv.jpg"
@@ -100,8 +100,8 @@
           height="400"
           priority 
           alt="features-seciton-card-one" 
-          class="rounded-md h-[500px]">
-        <div class="text-white p-4 h-[250px] flex flex-col justify-between">
+          class="rounded-md w-full">
+        <div class="text-white p-4">
           <h5 class="text-2xl">Serwisy</h5>
           <p class="text-lg my-4">Zachęcamy do zapoznania się z naszą ofertą, sprawdzenia cennika i skorzystania z naszych usług</p>
           <a routerLink="/price-list">Wszystkie Serwisy</a>
@@ -114,8 +114,8 @@
           height="400"
           priority 
           alt="features-seciton-card-two" 
-          class="rounded-md h-[500px]">
-        <div class="text-white p-4 h-[250px] flex flex-col justify-between">
+          class="rounded-md w-full">
+        <div class="text-white p-4">
           <h5 class="text-2xl">Certyfikaty</h5>
           <p class="text-lg my-4">Zapraszam do zapoznania się z moimi certyfikatami, które potwierdzają najwyższą jakość świadczonych przeze mnie usług.</p>
           <a routerLink="/price-list">Wszystkie Certyfikaty</a>
@@ -128,8 +128,8 @@
           height="400"
           priority 
           alt="features-seciton-card-three" 
-          class="rounded-md h-[500px]">
-        <div class="text-white p-4 h-[250px] flex flex-col justify-between">
+          class="rounded-md w-full">
+        <div class="text-white p-4">
           <h5 class="text-2xl">Informacje</h5>
           <p class="text-lg my-4">Jeśli masz wątpliwości dotyczące charakterystyki swojej skóry, kliknij poniższy przycisk.</p>
           <a routerLink="/price-list">Zobacz Informacje</a>
@@ -137,4 +137,22 @@
       </div>
     </div>
   </div>
+  <div>
+    <h3>FAQs</h3>
+    <p>Jeżeli masz jakieś pytania Przeglądnij poniższą sekcję FAQs</p>
+    <a routerLink="/faqs">Przejdź do FAQs</a>
+  </div>
 </div>
+<div class="bg-black text-white py-16 px-8 md:px-16 lg:px-32 xl:px-48">
+  <div class="mb-4">
+    <h2 class="text-4xl text-center mb-2 font-semibold">
+      Zdobądź Się Na Wyżyny Piękności <br />
+      Korzystając Z Usług Na Najwyższym Poziomie
+    </h2>
+    <p class="text-center text-2xl">Wszystko, czego potrzebujesz, aby podkreślić swoje piękno</p>
+  </div>
+  <div class="text-center">
+    <a routerLink="/questionnaire">Zapisz Się Już Teraz</a>
+  </div>
+</div>
+<lib-footer />

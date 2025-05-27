@@ -27,8 +27,17 @@
       "@lib/fridaymake-up/layouts": [
         "./libs/firdaymake-up/layouts/src/index.ts"
       ],
+      "@lib/fridaymake-up/price-list": [
+        "./libs/firdaymake-up/price-list/src/index.ts"
+      ],
+      "@lib/fridaymake-up/informations": [
+        "./libs/firdaymake-up/informations/src/index.ts"
+      ],
       "@lib/shared/header": [
         "./libs/shared/header/src/index.ts"
+      ],
+      "@lib/shared/footer": [
+        "./libs/shared/footer/src/index.ts"
       ]
     }
   },
