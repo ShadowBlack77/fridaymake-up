@@ -23,7 +23,7 @@ export class AuthService {
         take(1)
       ).subscribe({
         next: (user) => {
-          this.user$.next(null);
+          this.user$.next(user);
 
           observer.next();
           observer.complete();

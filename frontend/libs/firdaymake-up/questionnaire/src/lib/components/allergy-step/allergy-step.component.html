@@ -1,3 +1,41 @@
 <div>
-  Allergy
+  <p class="italic text-red-600 mb-4">*Poniższe pola sa wymagane!</p>
+  <form [formGroup]="form">
+    <div class="mb-2">
+      <label class="block mb-1">Czy jest Pani uczulona? Jeśli tak to na jaki kosmetyk/składnik?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="allergy"
+          id="allergy-yes"
+          [value]="true"
+          formControlName="allergy"
+        >
+        <label for="allergy-yes" class="ms-2">Tak</label>
+      </div>
+      @if (form.get('allergy')?.value) {
+        <div class="mb-6">
+          <label for="allergy-ingredients" class="block mb-1">Proszę wpisać nazwę kosmetyku/składnika</label>
+          <input 
+            type="text"
+            id="allergy-ingredients"
+            name="allergy-ingredients"
+            autocomplete="off"
+            formControlName="allergyIngredients"
+            class="border rounded-md px-2 py-1 w-full bg-transparent border-black outline-none"
+          />
+        </div>
+      }
+    </div>
+    <div class="mb-2">
+      <input 
+        type="radio"
+        name="allergy"
+        id="allergy-no"
+        [value]="false"
+        formControlName="allergy"
+      >
+      <label for="allergy-no" class="ms-2">Nie</label>
+    </div>
+  </form>
 </div>
