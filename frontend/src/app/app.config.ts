@@ -9,17 +9,24 @@ import { Environments } from '../environments/environments';
 import { provideHttpClient } from '@angular/common/http';
 import { AuthService } from '@lib/auth';
 import { PriceListEffects, priceListReducer } from '@lib/fridaymake-up/price-list';
+import { SkinTypesEffects, skinTypesReducer } from '@lib/fridaymake-up/informations';
+import { provideCloudinaryLoader } from '@angular/common';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
     provideHttpClient(),
+    provideCloudinaryLoader('https://res.cloudinary.com/dfv7maike'),
+    provideAnimationsAsync(),
     provideStore({
-      priceList: priceListReducer
+      priceList: priceListReducer,
+      skinTypes: skinTypesReducer
     }), 
     provideEffects([
-      PriceListEffects
+      PriceListEffects,
+      SkinTypesEffects
     ]),
     {
       provide: ENVIRONMENTS_TOKEN,

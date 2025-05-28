@@ -1,0 +1,19 @@
+<div>
+  <h1>Ankieta zapisu</h1>
+
+  <div>
+    <ng-content />
+  </div>
+
+  <div>
+    <button (click)="prev()" [disabled]="currentStep() === 0">Prev</button>
+    <p>
+      {{ currentStep() + 1 }} / {{ stepsCount() }}
+    </p>
+    @if (currentStep() + 1 === stepsCount()) {
+      <button (click)="submit()" [disabled]="!isStepValid()">Submit</button>
+    } @else {
+      <button (click)="next()" [disabled]="!isStepValid()">Next</button>
+    }
+  </div>
+</div>

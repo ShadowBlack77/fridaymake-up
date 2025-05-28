@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { SkinTypes } from "../models/skin-types.model";
 
 @Injectable({
@@ -29,4 +29,8 @@ export class InformationsService {
       description: 'Może skłaniać się w kierunku skóry suchej lub tłustej. Należy stosować peelingi enzymatyczne, unikać kosmetyków z zawartością alkoholu, dbać o silne nawilżenie partii suchych, natomiast partie tłuste pielęgnować kosmetykami matująco-nawilżającymi.'
     }
   ]);
+
+  getAll(): Observable<SkinTypes[]> {
+    return this._mockSkinTypesList.asObservable();
+  }
 }

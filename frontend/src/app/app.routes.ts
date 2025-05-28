@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { SkinTypesResolver } from '@lib/fridaymake-up/informations';
 import { PriceListResolver } from '@lib/fridaymake-up/price-list';
 
 export const routes: Routes = [
@@ -27,6 +28,9 @@ export const routes: Routes = [
       },
       {
         path: 'informations',
+        resolve: [
+          SkinTypesResolver
+        ],
         loadComponent: () => import('./pages/informations/informations-page.component').then((c) => c.InformationsPageComponent)
       },
       {
@@ -36,6 +40,24 @@ export const routes: Routes = [
       {
         path: 'faqs',
         loadComponent: () => import('./pages/faqs/faqs-page.component').then((c) => c.FaqsPageComponent)
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./pages/profile/profile-page.component').then((c) => c.ProfilePageComponent)
+      },
+      {
+        path: 'questionnaire',
+        loadComponent: () => import('./pages/questionnaire/questionnaire-form/questionnaire-form-page.component').then((c) => c.QuestionnaireFormPageComponent)
+      }
+    ]
+  },
+  {
+    path: 'auth',
+    loadComponent: () => import('@lib/fridaymake-up/layouts').then((c) => c.AuthLayoutComponent),
+    children: [
+      {
+        path: 'login',
+        loadComponent: () => import('./pages/auth/login-page/login-page.component').then((c) => c.LoginPageComponent)
       }
     ]
   }

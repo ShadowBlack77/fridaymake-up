@@ -1,6 +1,9 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
+import { AuthService } from "../../services/auth.service";
+import { Observable } from "rxjs";
+import { User } from "../../models/user.model";
 
 @Component({
   selector: 'lib-auth-header',
@@ -12,4 +15,7 @@ import { RouterLink } from "@angular/router";
 })
 export class AuthHeaderComponent {
 
+  private readonly _authService: AuthService = inject(AuthService);
+
+  protected readonly user$: Observable<User | null> = this._authService.user$;
 }

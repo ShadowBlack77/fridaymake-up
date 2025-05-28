@@ -10,7 +10,7 @@ export class PriceListResolver {
 
   private readonly _store: Store<PriceListState> = inject(Store);
 
-  resolve() {
+  resolve(): void {
     this._store.dispatch(loadPriceList());
   }
 }

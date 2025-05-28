@@ -1,3 +1,10 @@
 <div>
-  <h1>Skin Type List</h1>
+  @for (skinType of skinTypes$ | async; track skinType.id) {
+    <div class="border border-black rounded-md p-4 my-4">
+      <h2 class="text-2xl mb-2">{{ skinType.name }}</h2>
+      <p class="text-lg">{{ skinType.description }}</p>
+    </div>
+  } @empty {
+    <p>Informations not provided</p>
+  }
 </div>

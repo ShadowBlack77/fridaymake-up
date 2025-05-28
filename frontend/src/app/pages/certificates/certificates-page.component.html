@@ -1,13 +1,6 @@
 <div class="min-h-screen bg-[radial-gradient(circle_at_50%_50%,_#f7d3b5,_#ada687)] py-16 px-8 md:px-16 lg:px-32 xl:px-48">
-  <div class="w-full [column-count:1] sm:[column-count:2] md:[column-count:3] [column-gap:16px]">
-    <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739557800/CCF20231205_00001_lgdzgu.jpg" class="w-full mb-4 rounded-md shadow-sm object-cover object-[center_top]" alt="cert1">
-    <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739557810/CCF20231205_00002_oaqa2d.jpg" class="w-full mb-4 rounded-md shadow-sm object-cover object-[center_top]" alt="cert2">
-    <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739557819/CCF20231205_00003_kd3d2n.jpg" class="w-full mb-4 rounded-md shadow-sm object-cover object-[center_top]" alt="cert3">
-    <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739557845/CCF20231205_00006_brszhe.jpg" class="w-full mb-4 rounded-md shadow-sm object-cover object-[center_top]" alt="cert4">
-    <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739557828/CCF20231205_00004_vkwcs0.jpg" class="w-full mb-4 rounded-md shadow-sm object-cover object-[center_top]" alt="cert5">
-    <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739557836/CCF20231205_00005_uwfikx.jpg" class="w-full mb-4 rounded-md shadow-sm object-cover object-[center_top]" alt="cert6">
-    <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739557850/certyfikat-do-wklejenia_affibi.jpg" class="w-full mb-4 rounded-md shadow-sm object-cover object-[center_top]" alt="cert7">
-    <img src="https://res.cloudinary.com/dfv7maike/image/upload/v1739557857/Zrzut_ekranu_2023-12-05_220837_myj2m0.jpg" class="w-full mb-4 rounded-md shadow-sm object-cover object-[center_top]" alt="cert8">
+  <div class="w-full [column-count:1] sm:[column-count:2] md:[column-count:3] [column-gap:16px]" [@fade-in-certificates]="certificatesState()">
+    <lib-certificates-masonary />
   </div>
 </div>
 <lib-footer footerStyle='dark' />

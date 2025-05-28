@@ -31,7 +31,7 @@
   <div>
     <ul>
       @for (navigation of navigation(); track navigation.id) {
-        <li class="mb-2 hover:bg-[rgba(255,255,255,0.2)] hover:border-l px-4 cursor-pointer">
+        <li class="mb-2 hover:bg-[rgba(255,255,255,0.2)] py-2 hover:border-l px-4 cursor-pointer transition-all ease-in-out">
           <a [routerLink]="navigation.link" class="me-3 text-white text-lg w-full block">
             <i class="bi {{ navigation.icon }} me-2"></i> {{ navigation.label }}
           </a>

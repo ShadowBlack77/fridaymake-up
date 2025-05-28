@@ -21,6 +21,9 @@
       "@lib/core/environments": [
         "./libs/core/environments/src/index.ts"
       ],
+      "@lib/core/tokens": [
+        "./libs/core/tokens/src/index.ts"
+      ],
       "@lib/auth": [
         "./libs/auth/src/index.ts"
       ],
@@ -33,11 +36,26 @@
       "@lib/fridaymake-up/informations": [
         "./libs/firdaymake-up/informations/src/index.ts"
       ],
+      "@lib/fridaymake-up/portfolio": [
+        "./libs/firdaymake-up/portfolio/src/index.ts"
+      ],
+      "@lib/fridaymake-up/certificates": [
+        "./libs/firdaymake-up/certificates/src/index.ts"
+      ],
+      "@lib/fridaymake-up/questionnaire": [
+        "./libs/firdaymake-up/questionnaire/src/index.ts"
+      ],
       "@lib/shared/header": [
         "./libs/shared/header/src/index.ts"
       ],
       "@lib/shared/footer": [
         "./libs/shared/footer/src/index.ts"
+      ],
+      "@lib/shared/animations": [
+        "./libs/shared/animations/src/index.ts"
+      ],
+      "@lib/shared/stepper": [
+        "./libs/shared/stepper/src/index.ts"
       ]
     }
   },
