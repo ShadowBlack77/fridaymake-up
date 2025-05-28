@@ -1,0 +1,5 @@
+@if (user$ | async; as user) {
+  <a routerLink="/questionnaire" class="bg-black text-white rounded-md px-4 py-2">Zapisz się</a>
+} @else {
+  <a routerLink="/auth/login" class="bg-black text-white rounded-md px-4 py-2">Zaloguj się</a>
+}

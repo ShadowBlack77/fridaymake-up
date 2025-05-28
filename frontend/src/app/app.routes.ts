@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard, ProtectGuard } from '@lib/auth';
 import { SkinTypesResolver } from '@lib/fridaymake-up/informations';
 import { PriceListResolver } from '@lib/fridaymake-up/price-list';
 
@@ -13,9 +14,7 @@ export const routes: Routes = [
       },
       {
         path: 'price-list',
-        resolve: [
-          PriceListResolver
-        ],
+        resolve: [PriceListResolver],
         loadComponent: () => import('./pages/price-list/price-list-page.component').then((c) => c.PriceListPage)
       },
       {
@@ -28,9 +27,7 @@ export const routes: Routes = [
       },
       {
         path: 'informations',
-        resolve: [
-          SkinTypesResolver
-        ],
+        resolve: [SkinTypesResolver],
         loadComponent: () => import('./pages/informations/informations-page.component').then((c) => c.InformationsPageComponent)
       },
       {
@@ -43,22 +40,43 @@ export const routes: Routes = [
       },
       {
         path: 'profile',
+        canActivate: [ProtectGuard],
         loadComponent: () => import('./pages/profile/profile-page.component').then((c) => c.ProfilePageComponent)
       },
       {
         path: 'questionnaire',
+        canActivate: [ProtectGuard],
+        resolve: [PriceListResolver],
         loadComponent: () => import('./pages/questionnaire/questionnaire-form/questionnaire-form-page.component').then((c) => c.QuestionnaireFormPageComponent)
       }
     ]
   },
   {
     path: 'auth',
+    redirectTo: 'auth/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'auth',
+    canActivate: [AuthGuard],
     loadComponent: () => import('@lib/fridaymake-up/layouts').then((c) => c.AuthLayoutComponent),
     children: [
       {
         path: 'login',
         loadComponent: () => import('./pages/auth/login-page/login-page.component').then((c) => c.LoginPageComponent)
+      },
+      {
+        path: 'register',
+        loadComponent: () => import('./pages/auth/register-page/register-page.component').then((c) => c.RegisterPageComponent)
+      },
+      {
+        path: 'reset-password',
+        loadComponent: () => import('./pages/auth/reset-password-page/reset-password-page.component').then((c) => c.ResetPasswordPageComponent)
       }
     ]
+  },
+  {
+    path: '**',
+    loadComponent: () => import('./pages/not-found/not-found-page.component').then((c) => c.NotFoundPageComponent)
   }
 ];

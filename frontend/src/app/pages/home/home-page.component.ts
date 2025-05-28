@@ -4,6 +4,7 @@ import { RouterLink } from "@angular/router";
 import { FooterComponent } from "@lib/shared/footer";
 import { InViewportDirective } from "@lib/shared/animations";
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AuthActionsComponent } from "@lib/auth";
 
 @Component({
   selector: 'app-home-page',
@@ -12,7 +13,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
     RouterLink,
     InViewportDirective,
     NgOptimizedImage,
-    FooterComponent
+    FooterComponent,
+    AuthActionsComponent
   ],
   animations: [
     trigger('fade-in-hero', [

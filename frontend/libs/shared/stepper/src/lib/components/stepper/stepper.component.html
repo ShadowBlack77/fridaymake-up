@@ -1,19 +1,33 @@
-<div>
-  <h1>Ankieta zapisu</h1>
+<div class="bg-[radial-gradient(circle_at_50%_50%,_#f7d3b5,_#ada687)] px-8 md:px-16 lg:px-32 xl:px-48 min-h-[70vh] py-16 flex flex-col justify-around items-center">
+  <h1 class="text-4xl text-center">Ankieta zapisu</h1>
 
-  <div>
+  <div class="w-full md:w-1/2">
     <ng-content />
   </div>
 
-  <div>
-    <button (click)="prev()" [disabled]="currentStep() === 0">Prev</button>
-    <p>
+  <div class="flex justify-center">
+    <button 
+      (click)="prev()" 
+      [disabled]="currentStep() === 0"
+      class="text-xl" 
+      [ngClass]="{
+        'text-gray-500': currentStep() === 0
+      }"
+    >Wróć</button>
+    <p class="mx-4 text-lg italic">
       {{ currentStep() + 1 }} / {{ stepsCount() }}
     </p>
     @if (currentStep() + 1 === stepsCount()) {
-      <button (click)="submit()" [disabled]="!isStepValid()">Submit</button>
+      <button (click)="submit()" [disabled]="!isStepValid()">Wyślij</button>
     } @else {
-      <button (click)="next()" [disabled]="!isStepValid()">Next</button>
+      <button 
+        (click)="next()" 
+        [disabled]="!isStepValid()"
+        class="text-xl"
+        [ngClass]="{
+          'text-gray-500': !isStepValid()
+        }"
+      >Dalej</button>
     }
   </div>
 </div>

@@ -6,27 +6,30 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { ENVIRONMENTS_TOKEN } from '@lib/core/environments';
 import { Environments } from '../environments/environments';
-import { provideHttpClient } from '@angular/common/http';
-import { AuthService } from '@lib/auth';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { AuthService, RefreshInterceptors } from '@lib/auth';
 import { PriceListEffects, priceListReducer } from '@lib/fridaymake-up/price-list';
 import { SkinTypesEffects, skinTypesReducer } from '@lib/fridaymake-up/informations';
 import { provideCloudinaryLoader } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { QuestionnaireEffects, questionnaireReducer } from '@lib/fridaymake-up/questionnaire';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes), 
-    provideHttpClient(),
+    provideHttpClient(withInterceptorsFromDi()),
     provideCloudinaryLoader('https://res.cloudinary.com/dfv7maike'),
     provideAnimationsAsync(),
     provideStore({
       priceList: priceListReducer,
-      skinTypes: skinTypesReducer
+      skinTypes: skinTypesReducer,
+      questionniare: questionnaireReducer
     }), 
     provideEffects([
       PriceListEffects,
-      SkinTypesEffects
+      SkinTypesEffects,
+      QuestionnaireEffects
     ]),
     {
       provide: ENVIRONMENTS_TOKEN,
@@ -42,6 +45,11 @@ export const appConfig: ApplicationConfig = {
       },
       multi: true,
       deps: [AuthService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RefreshInterceptors,
+      multi: true
     }
   ]
 };

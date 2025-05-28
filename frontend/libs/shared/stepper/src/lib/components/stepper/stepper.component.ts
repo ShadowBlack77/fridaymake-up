@@ -1,10 +1,14 @@
-import { AfterContentInit, Component, computed, contentChildren, OnDestroy, output, OutputEmitterRef, Signal, signal, WritableSignal } from "@angular/core";
+import { AfterContentInit, Component, computed, contentChildren, effect, OnDestroy, output, OutputEmitterRef, Signal, signal, WritableSignal } from "@angular/core";
 import { StepComponent } from "../step/step.component";
 import { Subject } from "rxjs";
+import { CommonModule } from "@angular/common";
 
 @Component({
   selector: 'lib-stepper',
-  templateUrl: './stepper.component.html'
+  templateUrl: './stepper.component.html',
+  imports: [
+    CommonModule
+  ]
 })
 export class StepperComponent implements AfterContentInit, OnDestroy {
 
@@ -19,6 +23,16 @@ export class StepperComponent implements AfterContentInit, OnDestroy {
     return this._steps()[this.currentStep()].isValid();
   });
 
+  constructor() {
+    effect(() => {
+      this._steps().map((step) => {
+        step.isActive.set(false);
+      })
+      
+      this._steps()[this.currentStep()].isActive.set(true);
+    });
+  }
+
   ngAfterContentInit(): void {
     this.stepsCount.set(this._steps().length);
   }
@@ -31,7 +45,7 @@ export class StepperComponent implements AfterContentInit, OnDestroy {
 
   prev(): void {
     if (this.currentStep() > 0) {
-      this.currentStep.update((prev) => prev += 1);
+      this.currentStep.update((prev) => prev -= 1);
     }
   }
 

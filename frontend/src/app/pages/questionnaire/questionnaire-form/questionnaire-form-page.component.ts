@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { ContactDetailsStepComponent } from "@lib/fridaymake-up/questionnaire";
+import { AllergyStepComponent, ContactDetailsStepComponent, CreamStepComponent, DateStepComponent, DiseaseStepComponent, HairdoStepComponent, IngredientsStepComponent, MakeUpLikeStepComponent, MakeUpStepComponent, PoresStepComponent, SummaryStepComponent, UseAppearanceStepComponent } from "@lib/fridaymake-up/questionnaire";
+import { FooterComponent } from "@lib/shared/footer";
 import { StepComponent, StepperComponent } from "@lib/shared/stepper";
 
 @Component({
@@ -8,7 +9,19 @@ import { StepComponent, StepperComponent } from "@lib/shared/stepper";
   imports: [
     StepperComponent,
     StepComponent,
-    ContactDetailsStepComponent
+    ContactDetailsStepComponent,
+    AllergyStepComponent,
+    CreamStepComponent,
+    DateStepComponent,
+    DiseaseStepComponent,
+    HairdoStepComponent,
+    IngredientsStepComponent,
+    MakeUpLikeStepComponent,
+    MakeUpStepComponent,
+    PoresStepComponent,
+    SummaryStepComponent,
+    UseAppearanceStepComponent,
+    FooterComponent
   ]
 })
 export class QuestionnaireFormPageComponent {

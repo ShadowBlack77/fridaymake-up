@@ -1,9 +1,17 @@
-<div>
-  <div>
-    <!-- IMAGE -->
-  </div>
+<div class="bg-[radial-gradient(circle_at_50%_50%,_#f7d3b5,_#ada687)]">
+  <div class="grid grid-cols-1 md:grid-cols-2" [@fade-in-auth]="authState()">
+    <div class="hidden md:block">
+      <img 
+        src="https://images.pexels.com/photos/1678829/pexels-photo-1678829.jpeg?auto=compress&cs=tinysrgb&w=1600" 
+        class="w-full h-screen object-cover"
+        alt="Make up"
+      >
+    </div>
 
-  <div>
-    <router-outlet />
+    <div class="py-16 px-8 md:px-16 lg:px-32 xl:px-48 h-screen flex items-center">
+      <div class="w-full">
+        <router-outlet />
+      </div>
+    </div>
   </div>
 </div>
