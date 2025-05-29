@@ -1,7 +1,10 @@
-import { AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
-import { FormBuilder, FormControlStatus, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { AfterContentChecked, AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
-import { debounceTime } from "rxjs";
+import { selectSkinTypes, SkinTypes, SkinTypesState } from "@lib/fridaymake-up/informations";
+import { Store } from "@ngrx/store";
+import { debounceTime, Observable } from "rxjs";
 
 @Component({
   selector: 'lib-disease-step',
@@ -13,15 +16,36 @@ import { debounceTime } from "rxjs";
     }
   ],
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ]
 })
 export class DiseaseStepComponent implements AfterContentInit {
  
+  private readonly _skinTypesStore: Store<SkinTypesState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
 
-  readonly form = this._formBuilder.group({
+  protected readonly skinTypes$: Observable<SkinTypes[]> = this._skinTypesStore.select(selectSkinTypes);
 
+  readonly form = this._formBuilder.group({
+    diseaseThree: new FormControl(false, {
+      nonNullable: true,
+      validators: [
+        Validators.required
+      ]
+    }),
+    skinShiny: new FormControl(false, {
+      nonNullable: true, 
+      validators: [
+        Validators.required
+      ]
+    }),
+    skinType: new FormControl('', {
+      nonNullable: true,
+      validators: [
+        Validators.required
+      ]
+    })
   });
 
   readonly isValid: OutputEmitterRef<boolean> = output<boolean>();

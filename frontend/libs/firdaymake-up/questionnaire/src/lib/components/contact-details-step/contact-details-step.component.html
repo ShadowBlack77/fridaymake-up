@@ -10,7 +10,7 @@
         autocomplete="off"
         placeholder="John Doe"
         formControlName="name"
-        class="border rounded-md px-2 py-1 w-full bg-transparent border-black outline-none"
+        class="border rounded-md px-2 py-1 w-full bg-[rgb(15,15,15)] text-white border-black outline-none"
       >
     </div>
     <div class="mb-2">
@@ -22,7 +22,7 @@
         autocomplete="off"
         placeholder="email@example.com"
         formControlName="email"
-        class="border rounded-md px-2 py-1 w-full bg-transparent border-black outline-none"
+        class="border rounded-md px-2 py-1 w-full bg-[rgb(15,15,15)] text-white border-black outline-none"
       >
     </div>
     <div class="mb-2">
@@ -34,7 +34,7 @@
         autocomplete="off"
         placeholder="111 222 333"
         formControlName="phoneNumber"
-        class="border rounded-md px-2 py-1 w-full bg-transparent border-black outline-none"
+        class="border rounded-md px-2 py-1 w-full bg-[rgb(15,15,15)] text-white border-black outline-none"
       >
     </div>
     <div class="mb-2">
@@ -42,12 +42,12 @@
       <select 
         name="service" 
         id="service"
-        class="border rounded-md px-2 py-1 w-full bg-transparent border-black outline-none"
+        class="border rounded-md px-2 py-1 w-full bg-[rgb(15,15,15)] text-white border-black outline-none"
         formControlName="service"
       >
-        <option value="" class="bg-[rgb(71,65,65)] text-white">Kliknij aby rozwinąć menu</option>
+        <option value="" class="bg-[rgb(15,15,15)] text-white">Kliknij aby rozwinąć menu</option>
         @for (services of services$ | async; track services.id) {
-          <option class="bg-[rgb(71,65,65)] text-white" [value]="services.id">{{ services.name }}</option>
+          <option class="bg-[rgb(15,15,15)] text-white" [value]="services.id">{{ services.name }}</option>
         }
       </select>
     </div>

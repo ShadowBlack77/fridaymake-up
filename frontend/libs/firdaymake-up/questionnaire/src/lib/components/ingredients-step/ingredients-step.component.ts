@@ -1,5 +1,5 @@
-import { AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
-import { FormBuilder, FormControlStatus, ReactiveFormsModule } from "@angular/forms";
+import { AfterContentChecked, AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
 import { debounceTime } from "rxjs";
 
@@ -16,12 +16,32 @@ import { debounceTime } from "rxjs";
     ReactiveFormsModule
   ]
 })
-export class IngredientsStepComponent implements AfterContentInit {
+export class IngredientsStepComponent implements AfterContentInit, AfterContentChecked {
 
   private readonly _formBuilder = inject(FormBuilder);
 
   readonly form = this._formBuilder.group({
-
+    cosmeticIngredients: new FormControl(false, {
+      nonNullable: true,
+      validators: [
+        Validators.required
+      ]
+    }),
+    whichIngredients: new FormControl('', {
+      nonNullable: false,
+    }),
+    diseaseOne: new FormControl(false, {
+      nonNullable: true,
+      validators: [
+        Validators.required
+      ]
+    }),
+    diseaseTwo: new FormControl(false, {
+      nonNullable: true,
+      validators: [
+        Validators.required
+      ]
+    }),
   });
 
   readonly isValid: OutputEmitterRef<boolean> = output<boolean>();
@@ -36,5 +56,9 @@ export class IngredientsStepComponent implements AfterContentInit {
     ).subscribe((value) => {
       console.log(value);
     });
+  }
+
+  ngAfterContentChecked(): void {
+    this.isValid.emit(true);
   }
 }

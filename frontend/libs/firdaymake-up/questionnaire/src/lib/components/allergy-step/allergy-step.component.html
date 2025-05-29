@@ -22,20 +22,66 @@
             name="allergy-ingredients"
             autocomplete="off"
             formControlName="allergyIngredients"
-            class="border rounded-md px-2 py-1 w-full bg-transparent border-black outline-none"
+            class="border rounded-md px-2 py-1 w-full bg-[rgb(15,15,15)] text-white border-black outline-none"
           />
         </div>
       }
+      <div>
+        <input 
+          type="radio"
+          name="allergy"
+          id="allergy-no"
+          [value]="false"
+          formControlName="allergy"
+        >
+        <label for="allergy-no" class="ms-2">Nie</label>
+      </div>
     </div>
     <div class="mb-2">
-      <input 
-        type="radio"
-        name="allergy"
-        id="allergy-no"
-        [value]="false"
-        formControlName="allergy"
-      >
-      <label for="allergy-no" class="ms-2">Nie</label>
+      <label class="block mb-1">Czy posiadasz zmiany skórne takie jak: otwarte ranki, szwy, świeże rany, sączące się rany, zmiany wirusowe, bakteryjne oraz grzybicze?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="skinChanges"
+          id="skinChanges-yes"
+          [value]="true"
+          formControlName="skinChanges"
+        >
+        <label for="skinChanges-yes" class="ms-2">Tak</label>
+      </div>
+      <div>
+        <input 
+          type="radio"
+          name="skinChanges"
+          id="skinChanges-no"
+          [value]="false"
+          formControlName="skinChanges"
+        >
+        <label for="skinChanges-no" class="ms-2">Nie</label>
+      </div>
+    </div>
+    <div class="mb-2">
+      <label class="block mb-1">Czy nosisz szkła kontaktowe?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="lenses"
+          id="lenses-yes"
+          [value]="true"
+          formControlName="lenses"
+        >
+        <label for="lenses-yes" class="ms-2">Tak</label>
+      </div>
+      <div>
+        <input 
+          type="radio"
+          name="lenses"
+          id="lenses-no"
+          [value]="false"
+          formControlName="lenses"
+        >
+        <label for="lenses-no" class="ms-2">Nie</label>
+      </div>
     </div>
   </form>
 </div>

@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
 import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
 import { debounceTime } from "rxjs";
@@ -16,7 +16,7 @@ import { debounceTime } from "rxjs";
     ReactiveFormsModule
   ]
 })
-export class AllergyStepComponent implements AfterContentInit {
+export class AllergyStepComponent implements AfterContentInit, AfterContentChecked {
 
   private readonly _formBuilder = inject(FormBuilder);
 
@@ -28,7 +28,7 @@ export class AllergyStepComponent implements AfterContentInit {
       ]
     }),
     allergyIngredients: new FormControl('', {
-      nonNullable: true,
+      nonNullable: false,
     }),
     skinChanges: new FormControl(false, {
       nonNullable: true,
@@ -56,5 +56,9 @@ export class AllergyStepComponent implements AfterContentInit {
     ).subscribe((value) => {
       console.log(value);
     });
+  }
+
+  ngAfterContentChecked(): void {
+    this.isValid.emit(true);
   }
 }

@@ -1,5 +1,5 @@
-import { Component, inject, output, OutputEmitterRef } from "@angular/core";
-import { FormBuilder, FormControlStatus, ReactiveFormsModule } from "@angular/forms";
+import { AfterContentChecked, AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
 import { debounceTime } from "rxjs";
 
@@ -16,12 +16,14 @@ import { debounceTime } from "rxjs";
     ReactiveFormsModule
   ]
 })
-export class MakeUpStepComponent {
+export class MakeUpStepComponent implements AfterContentInit, AfterContentChecked {
 
-  private readonly _formBuilder = inject(FormBuilder);
+private readonly _formBuilder = inject(FormBuilder);
 
   readonly form = this._formBuilder.group({
-
+    expectedEffect: new FormControl('', {
+      nonNullable: false,
+    })
   });
 
   readonly isValid: OutputEmitterRef<boolean> = output<boolean>();
@@ -36,5 +38,9 @@ export class MakeUpStepComponent {
     ).subscribe((value) => {
       console.log(value);
     });
+  }
+
+  ngAfterContentChecked(): void {
+    this.isValid.emit(true);
   }
 }

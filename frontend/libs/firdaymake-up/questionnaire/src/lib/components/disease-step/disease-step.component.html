@@ -1,0 +1,65 @@
+<div>
+  <p class="italic text-red-600 mb-4">*Poniższe pola sa wymagane!</p>
+  <form [formGroup]="form">
+    <div class="mb-2">
+      <label class="block mb-1">Czy ma Pani jakikolwiek problem z oczami?: Jęczmień, zaćma (katarakta), jaskra, zapalenie spojówek, odwarstwienie siatkówki, zwyrodnienie plamki żółtej?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="diseaseThree"
+          id="diseaseThree-yes"
+          [value]="true"
+          formControlName="diseaseThree"
+        >
+        <label for="diseaseThree-yes" class="ms-2">Tak</label>
+      </div>
+      <div>
+        <input 
+          type="radio"
+          name="diseaseThree"
+          id="diseaseThree-no"
+          [value]="false"
+          formControlName="diseaseThree"
+        >
+        <label for="diseaseThree-no" class="ms-2">Nie</label>
+      </div>
+    </div>
+    <div class="mb-2">
+      <label class="block mb-1">Czy masz problem z błyszczeniem się twarzy po całym dniu?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="skinShiny"
+          id="skinShiny-yes"
+          [value]="true"
+          formControlName="skinShiny"
+        >
+        <label for="skinShiny-yes" class="ms-2">Tak</label>
+      </div>
+      <div>
+        <input 
+          type="radio"
+          name="skinShiny"
+          id="skinShiny-no"
+          [value]="false"
+          formControlName="skinShiny"
+        >
+        <label for="skinShiny-no" class="ms-2">Nie</label>
+      </div>
+    </div>
+    <div class="mb-2">
+      <label class="block mb-1">Jaki posiada Pani rodzaj skóry: sucha, normalna, mieszana, tłusta, naczynkowa, trądzikowa, ...?</label>
+      <select 
+        name="skinType" 
+        id="skinType"
+        class="border rounded-md px-2 py-1 w-full bg-[rgb(15,15,15)] text-white border-black outline-none"
+        formControlName="skinType"
+      >
+        <option value="" class="bg-[rgb(15,15,15)] text-white">Kliknij aby rozwinąć menu</option>
+        @for (skinType of skinTypes$ | async; track skinType.id) {
+          <option class="bg-[rgb(15,15,15)] text-white" [value]="skinType.id">{{ skinType.name }}</option>
+        }
+      </select>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,74 @@
+<div>
+  <p class="italic text-red-600 mb-4">*Poniższe pola sa wymagane!</p>
+  <form [formGroup]="form">
+    <div class="mb-2">
+      <label class="block mb-1">Czy widzisz rozszerzone pory?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="pores"
+          id="pores-yes"
+          [value]="true"
+          formControlName="pores"
+        >
+        <label for="pores-yes" class="ms-2">Tak</label>
+      </div>
+      <div>
+        <input 
+          type="radio"
+          name="pores"
+          id="pores-no"
+          [value]="false"
+          formControlName="pores"
+        >
+        <label for="pores-no" class="ms-2">Nie</label>
+      </div>
+    </div>
+    <div class="mb-2">
+      <label class="block mb-1">Czy zażywa Pani jakieś leki?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="medicines"
+          id="medicines-yes"
+          [value]="true"
+          formControlName="medicines"
+        >
+        <label for="medicines-yes" class="ms-2">Tak</label>
+      </div>
+      <div>
+        <input 
+          type="radio"
+          name="medicines"
+          id="medicines-no"
+          [value]="false"
+          formControlName="medicines"
+        >
+        <label for="medicines-no" class="ms-2">Nie</label>
+      </div>
+    </div>
+    <div class="mb-2">
+      <label class="block mb-1">Czy występują przewlekłe problemy skórne?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="skinDiseases"
+          id="skinDiseases-yes"
+          [value]="true"
+          formControlName="skinDiseases"
+        >
+        <label for="skinDiseases-yes" class="ms-2">Tak</label>
+      </div>
+      <div>
+        <input 
+          type="radio"
+          name="skinDiseases"
+          id="skinDiseases-no"
+          [value]="false"
+          formControlName="skinDiseases"
+        >
+        <label for="skinDiseases-no" class="ms-2">Nie</label>
+      </div>
+    </div>
+  </form>
+</div>

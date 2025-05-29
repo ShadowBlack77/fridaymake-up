@@ -46,7 +46,10 @@ export const routes: Routes = [
       {
         path: 'questionnaire',
         canActivate: [ProtectGuard],
-        resolve: [PriceListResolver],
+        resolve: [
+          PriceListResolver,
+          SkinTypesResolver
+        ],
         loadComponent: () => import('./pages/questionnaire/questionnaire-form/questionnaire-form-page.component').then((c) => c.QuestionnaireFormPageComponent)
       }
     ]

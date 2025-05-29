@@ -1,0 +1,87 @@
+<div>
+  <p class="italic text-red-600 mb-4">*Poniższe pola sa wymagane!</p>
+  <form [formGroup]="form">
+    <div class="mb-2">
+      <label class="block mb-1">Czy ma Pani przeciwwskazania na jakikolwiek składnik kosmetyków?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="cosmeticIngredients"
+          id="cosmeticIngredients-yes"
+          [value]="true"
+          formControlName="cosmeticIngredients"
+        >
+        <label for="cosmeticIngredients-yes" class="ms-2">Tak</label>
+      </div>
+       @if (form.get('cosmeticIngredients')?.value) {
+        <div class="mb-6">
+          <label for="whichIngredients" class="block mb-1">Proszę wpisać nazwę składnika</label>
+          <input 
+            type="text"
+            id="whichIngredients"
+            name="whichIngredients"
+            autocomplete="off"
+            formControlName="whichIngredients"
+            class="border rounded-md px-2 py-1 w-full bg-[rgb(15,15,15)] text-white border-black outline-none"
+          />
+        </div>
+      }
+      <div>
+        <input 
+          type="radio"
+          name="cosmeticIngredients"
+          id="cosmeticIngredients-no"
+          [value]="false"
+          formControlName="cosmeticIngredients"
+        >
+        <label for="cosmeticIngredients-no" class="ms-2">Nie</label>
+      </div>
+    </div>
+    <div class="mb-2">
+      <label class="block mb-1">Czy miała Pani kiedykolwiek opryszczkę/febrę/zimę?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="diseaseOne"
+          id="diseaseOne-yes"
+          [value]="true"
+          formControlName="diseaseOne"
+        >
+        <label for="diseaseOne-yes" class="ms-2">Tak</label>
+      </div>
+      <div>
+        <input 
+          type="radio"
+          name="diseaseOne"
+          id="diseaseOne-no"
+          [value]="false"
+          formControlName="diseaseOne"
+        >
+        <label for="diseaseOne-no" class="ms-2">Nie</label>
+      </div>
+    </div>
+    <div class="mb-2">
+      <label class="block mb-1">Czy jest/była Pani nosicielem gronkowca?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="diseaseTwo"
+          id="diseaseTwo-yes"
+          [value]="true"
+          formControlName="diseaseTwo"
+        >
+        <label for="diseaseTwo-yes" class="ms-2">Tak</label>
+      </div>
+      <div>
+        <input 
+          type="radio"
+          name="diseaseTwo"
+          id="diseaseTwo-no"
+          [value]="false"
+          formControlName="diseaseTwo"
+        >
+        <label for="diseaseTwo-no" class="ms-2">Nie</label>
+      </div>
+    </div>
+  </form>
+</div>
