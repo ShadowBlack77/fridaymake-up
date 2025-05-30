@@ -1,7 +1,10 @@
 import { AfterContentChecked, AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
 import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
+import { Store } from "@ngrx/store";
 import { debounceTime } from "rxjs";
+import { QuestionnaireState } from "../../store/reducer";
+import { saveMakeUpLike } from "../../store/actions";
 
 @Component({
   selector: 'lib-make-up-like-step',
@@ -18,10 +21,11 @@ import { debounceTime } from "rxjs";
 })
 export class MakeUpLikeStepComponent implements AfterContentInit, AfterContentChecked {
 
+  private readonly _store: Store<QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
 
   readonly form = this._formBuilder.group({
-    expectedEffect: new FormControl('', {
+    makeupLike: new FormControl('', {
       nonNullable: false,
     })
   });
@@ -36,11 +40,20 @@ export class MakeUpLikeStepComponent implements AfterContentInit, AfterContentCh
     this.form.valueChanges.pipe(
       debounceTime(100)
     ).subscribe((value) => {
-      console.log(value);
+      const makeUpLike = {
+        makeUp: value.makeupLike!
+      }
+
+      this._store.dispatch(saveMakeUpLike({ makeUpLike }))
     });
   }
 
   ngAfterContentChecked(): void {
+    const makeUpLike = {
+      makeUp: this.form.get('makeupLike')?.value!
+    }
+
+    this._store.dispatch(saveMakeUpLike({ makeUpLike }));
     this.isValid.emit(true);
   }
 }

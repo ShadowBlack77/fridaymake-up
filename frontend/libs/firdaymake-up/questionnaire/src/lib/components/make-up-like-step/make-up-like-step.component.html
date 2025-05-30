@@ -1,12 +1,14 @@
 <div>
   <form [formGroup]="form">
     <div class="mb-2">
-      <label id="expectedEffect" class="block mb-1">Jakiego makijażu/charakteryzacji oczekujesz</label>
+      <label id="makeupLike" class="block mb-1">Co lubisz w makijażu</label>
       <div class="mb-3">
         <textarea
-          name="expectedEffect"
-          id="expectedEffect"
-          formControlName="expectedEffect"
+          name="makeupLike"
+          id="makeupLike"
+          formControlName="makeupLike"
+          class="w-full resize-none h-[300px] border border-black rounded-md px-2 py-1 bg-transparent text-black placeholder:text-gray-500 outline-none"
+          placeholder="Napisz tutaj..."
         ></textarea>
       </div>
     </div>

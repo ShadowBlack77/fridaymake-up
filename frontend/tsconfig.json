@@ -45,6 +45,9 @@
       "@lib/fridaymake-up/questionnaire": [
         "./libs/firdaymake-up/questionnaire/src/index.ts"
       ],
+      "@lib/fridaymake-up/stepper": [
+        "./libs/firdaymake-up/stepper/src/index.ts"
+      ],
       "@lib/shared/header": [
         "./libs/shared/header/src/index.ts"
       ],

@@ -1,7 +1,10 @@
-import { AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
-import { FormBuilder, FormControlStatus, ReactiveFormsModule } from "@angular/forms";
+import { AfterContentChecked, AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
+import { Store } from "@ngrx/store";
 import { debounceTime } from "rxjs";
+import { QuestionnaireState } from "../../store/reducer";
+import { saveCream } from "../../store/actions";
 
 @Component({
   selector: 'lib-cream-step',
@@ -16,12 +19,15 @@ import { debounceTime } from "rxjs";
     ReactiveFormsModule
   ]
 })
-export class CreamStepComponent implements AfterContentInit {
+export class CreamStepComponent implements AfterContentInit, AfterContentChecked {
   
+  private readonly _store: Store<QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
 
   readonly form = this._formBuilder.group({
-
+    cream: new FormControl('', {
+      nonNullable: false
+    })
   });
 
   readonly isValid: OutputEmitterRef<boolean> = output<boolean>();
@@ -34,7 +40,20 @@ export class CreamStepComponent implements AfterContentInit {
     this.form.valueChanges.pipe(
       debounceTime(100)
     ).subscribe((value) => {
-      console.log(value);
+      const cream = {
+        cream: value.cream!
+      }
+
+      this._store.dispatch(saveCream({ cream }));
     });
+  }
+
+  ngAfterContentChecked(): void {
+    const cream = {
+      cream: this.form.get('cream')?.value!
+    };
+
+    this._store.dispatch(saveCream({ cream }));
+    this.isValid.emit(true);
   }
 }

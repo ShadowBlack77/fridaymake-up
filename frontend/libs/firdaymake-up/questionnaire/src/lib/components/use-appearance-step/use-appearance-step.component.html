@@ -1,0 +1,30 @@
+<div>
+  <p class="italic text-red-600 mb-4">*Poniższe pola sa wymagane!</p>
+  <form [formGroup]="form">
+    <div class="mb-2">
+      <label class="block mb-1">Czy wyrażasz zgodę na wykorzystanie Twojego wizerunku w celu zwiększenia mojego portfolio?</label>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="useAppearance"
+          id="useAppearance-yes"
+          [value]="true"
+          formControlName="useAppearance"
+          class="accent-black"
+        >
+        <label for="useAppearance-yes" class="ms-2">Tak</label>
+      </div>
+      <div class="mb-3">
+        <input 
+          type="radio"
+          name="useAppearance"
+          id="useAppearance-no"
+          [value]="false"
+          formControlName="useAppearance"
+          class="accent-black"
+        >
+        <label for="useAppearance-no" class="ms-2">Nie</label>
+      </div>
+    </div>
+  </form>
+</div>

@@ -2,6 +2,9 @@ import { AfterContentChecked, AfterContentInit, Component, inject, output, Outpu
 import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
 import { debounceTime } from "rxjs";
+import { QuestionnaireState } from "../../store/reducer";
+import { Store } from "@ngrx/store";
+import { savePores } from "../../store/actions";
 
 @Component({
   selector: 'lib-pores-step',
@@ -18,6 +21,7 @@ import { debounceTime } from "rxjs";
 })
 export class PoresStepComponent implements AfterContentInit, AfterContentChecked {
 
+  private readonly _questionnaireStore: Store<QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
 
   readonly form = this._formBuilder.group({
@@ -51,11 +55,24 @@ export class PoresStepComponent implements AfterContentInit, AfterContentChecked
     this.form.valueChanges.pipe(
       debounceTime(100)
     ).subscribe((value) => {
-      console.log(value);
+      const pores = {
+        pores: value.pores!,
+        medicines: value.medicines!,
+        skinDiseases: value.skinDiseases!
+      }
+
+      this._questionnaireStore.dispatch(savePores({ pores }));
     });
   }
 
   ngAfterContentChecked(): void {
+    const pores = {
+      pores: this.form.get('pores')!.value!,
+      medicines: this.form.get('medicines')!.value!,
+      skinDiseases: this.form.get('skinDiseases')!.value!
+    }
+
+    this._questionnaireStore.dispatch(savePores({ pores }));
     this.isValid.emit(true);
   }
 }

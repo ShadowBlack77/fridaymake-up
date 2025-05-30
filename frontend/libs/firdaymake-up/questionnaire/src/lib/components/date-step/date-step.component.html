@@ -1,0 +1,25 @@
+<div>
+  <p class="italic text-red-600 mb-4">*Poniższe pola sa wymagane!</p>
+  <form [formGroup]="form">
+    <div class="mb-2">
+      <label for="date" class="block">Wybierz date</label>
+      <input 
+        type="date"
+        name="selectedDate"
+        id="date"
+        formControlName="selectedDate"
+        class="border rounded-md px-2 py-1 w-full bg-transparent text-black border-black outline-none"
+      >
+    </div>
+    <div class="mb-2">
+      <label for="date" class="block">Wybierz godzine</label>
+      <input 
+        type="time"
+        name="selectedHour"
+        id="date"
+        formControlName="selectedHour"
+        class="border rounded-md px-2 py-1 w-full bg-transparent text-black border-black outline-none"
+      >
+    </div>
+  </form>
+</div>

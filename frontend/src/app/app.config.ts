@@ -24,7 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       priceList: priceListReducer,
       skinTypes: skinTypesReducer,
-      questionniare: questionnaireReducer
+      questionnaire: questionnaireReducer
     }), 
     provideEffects([
       PriceListEffects,

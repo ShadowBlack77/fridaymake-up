@@ -11,7 +11,10 @@ export * from './lib/components/make-up-step/make-up-step.component';
 export * from './lib/components/pores-step/pores-step.component';
 export * from './lib/components/summary-step/summary-step.component';
 export * from './lib/components/use-appearance-step/use-appearance-step.component';
+export * from './lib/components/user-saved-questionnaire/user-saved-questionnaire.component';
 
 // STORE
 export * from './lib/store/effects';
 export * from './lib/store/reducer';
+export * from './lib/store/actions';
+export * from './lib/store/selectors';

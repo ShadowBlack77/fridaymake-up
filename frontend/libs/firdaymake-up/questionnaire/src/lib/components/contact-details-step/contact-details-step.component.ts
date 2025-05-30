@@ -24,11 +24,10 @@ import { saveContactDetails } from "../../store/actions";
 })
 export class ContactDetailsStepComponent implements AfterContentInit {
 
-  private readonly _servicesStore: Store<PriceListState> = inject(Store);
-  private readonly _questionnaireStore: Store<QuestionnaireState> = inject(Store);
+  private readonly _store: Store<PriceListState | QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
 
-  protected readonly services$ = this._servicesStore.select(selectPriceList);
+  protected readonly services$ = this._store.select(selectPriceList);
 
   readonly form = this._formBuilder.group({
     name: new FormControl('', {
@@ -75,7 +74,7 @@ export class ContactDetailsStepComponent implements AfterContentInit {
         service: value.service!
       }
       
-      this._questionnaireStore.dispatch(saveContactDetails({ contactDetails }));
+      this._store.dispatch(saveContactDetails({ contactDetails }));
     });
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { AllergyStepComponent, ContactDetailsStepComponent, CreamStepComponent, DateStepComponent, DiseaseStepComponent, HairdoStepComponent, IngredientsStepComponent, MakeUpLikeStepComponent, MakeUpStepComponent, PoresStepComponent, SummaryStepComponent, UseAppearanceStepComponent } from "@lib/fridaymake-up/questionnaire";
+import { StepperWrapperComponent } from "@lib/fridaymake-up/stepper";
 import { FooterComponent } from "@lib/shared/footer";
 import { StepComponent, StepperComponent } from "@lib/shared/stepper";
 
@@ -21,12 +22,9 @@ import { StepComponent, StepperComponent } from "@lib/shared/stepper";
     PoresStepComponent,
     SummaryStepComponent,
     UseAppearanceStepComponent,
-    FooterComponent
+    FooterComponent,
+    StepperWrapperComponent
   ]
 })
 export class QuestionnaireFormPageComponent {
-
-  handleSubmit(): void {
-    console.log('SUBMIT');
-  }
 }

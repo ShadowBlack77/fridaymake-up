@@ -1,7 +1,6 @@
-import { Component, inject, output, OutputEmitterRef } from "@angular/core";
-import { FormBuilder, FormControlStatus, ReactiveFormsModule } from "@angular/forms";
+import { AfterContentChecked, Component, output, OutputEmitterRef } from "@angular/core";
+import { RouterLink } from "@angular/router";
 import { STEP_VALIDATION } from "@lib/core/tokens";
-import { debounceTime } from "rxjs";
 
 @Component({
   selector: 'lib-summary-step',
@@ -13,28 +12,14 @@ import { debounceTime } from "rxjs";
     }
   ],
   imports: [
-    ReactiveFormsModule
+    RouterLink
   ]
 })
-export class SummaryStepComponent {
-
-  private readonly _formBuilder = inject(FormBuilder);
-
-  readonly form = this._formBuilder.group({
-
-  });
+export class SummaryStepComponent implements AfterContentChecked {
 
   readonly isValid: OutputEmitterRef<boolean> = output<boolean>();
 
-  ngAfterContentInit(): void {
-    this.form.statusChanges.subscribe((status: FormControlStatus) => {
-      this.isValid.emit(status === 'VALID');
-    });
-
-    this.form.valueChanges.pipe(
-      debounceTime(100)
-    ).subscribe((value) => {
-      console.log(value);
-    });
+  ngAfterContentChecked(): void {
+    this.isValid.emit(true);
   }
 }

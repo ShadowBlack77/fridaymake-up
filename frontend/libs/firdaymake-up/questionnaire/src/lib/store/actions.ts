@@ -143,7 +143,7 @@ export const saveDateFailure = createAction(
 
 export const saveUseAppearance = createAction(
   '[QUESTIONNAIRE] Save Use Appearance',
-  props<{ useApearance: Pick<Questionnaire, 'useAppearance'> }>()
+  props<{ useAppearance: Pick<Questionnaire, 'useAppearance'> }>()
 );
 export const saveUseAppearanceSuccess = createAction(
   '[QUESTIONNAIRE] Save Use Appearance Success',

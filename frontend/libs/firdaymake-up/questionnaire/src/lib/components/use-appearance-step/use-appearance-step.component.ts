@@ -1,7 +1,10 @@
-import { Component, inject, output, OutputEmitterRef } from "@angular/core";
-import { FormBuilder, FormControlStatus, ReactiveFormsModule } from "@angular/forms";
+import { AfterContentChecked, AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
+import { Store } from "@ngrx/store";
 import { debounceTime } from "rxjs";
+import { QuestionnaireState } from "../../store/reducer";
+import { saveUseAppearance } from "../../store/actions";
 
 @Component({
   selector: 'lib-use-appearance-step',
@@ -16,12 +19,18 @@ import { debounceTime } from "rxjs";
     ReactiveFormsModule
   ]
 })
-export class UseAppearanceStepComponent {
+export class UseAppearanceStepComponent implements AfterContentInit, AfterContentChecked {
 
+  private readonly _store: Store<QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
 
   readonly form = this._formBuilder.group({
-
+    useAppearance: new FormControl(false, {
+      nonNullable: true,
+      validators: [
+        Validators.required
+      ]
+    })
   });
 
   readonly isValid: OutputEmitterRef<boolean> = output<boolean>();
@@ -34,7 +43,20 @@ export class UseAppearanceStepComponent {
     this.form.valueChanges.pipe(
       debounceTime(100)
     ).subscribe((value) => {
-      console.log(value);
+      const useAppearance = {
+        useAppearance: value.useAppearance!
+      }
+
+      this._store.dispatch(saveUseAppearance({ useAppearance }));
     });
+  }
+
+  ngAfterContentChecked(): void {
+    const useAppearance = {
+      useAppearance: this.form.get('useAppearance')?.value!
+    };
+
+    this._store.dispatch(saveUseAppearance({ useAppearance }));
+    this.isValid.emit(true);
   }
 }

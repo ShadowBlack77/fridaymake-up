@@ -16,6 +16,6 @@ export class QuestionnaireService {
 
   save(questionnaire: Questionnaire): Observable<unknown> {
     console.log(questionnaire);
-    return of();
+    return of(true);
   }
 }

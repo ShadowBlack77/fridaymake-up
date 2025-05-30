@@ -1,7 +1,10 @@
 import { AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
-import { FormBuilder, FormControlStatus, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
+import { Store } from "@ngrx/store";
 import { debounceTime } from "rxjs";
+import { QuestionnaireState } from "../../store/reducer";
+import { saveDate } from "../../store/actions";
 
 @Component({
   selector: 'lib-date-step',
@@ -18,10 +21,22 @@ import { debounceTime } from "rxjs";
 })
 export class DateStepComponent implements AfterContentInit {
 
+  private readonly _store: Store<QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
 
   readonly form = this._formBuilder.group({
-
+    selectedDate: new FormControl(new Date(), {
+      nonNullable: true,
+      validators: [
+        Validators.required
+      ]
+    }),
+    selectedHour: new FormControl('00:00:00', {
+      nonNullable: true,
+      validators: [
+        Validators.required
+      ]
+    })
   });
 
   readonly isValid: OutputEmitterRef<boolean> = output<boolean>();
@@ -34,7 +49,12 @@ export class DateStepComponent implements AfterContentInit {
     this.form.valueChanges.pipe(
       debounceTime(100)
     ).subscribe((value) => {
-      console.log(value);
+      const date = {
+        selectedDate: value.selectedDate!,
+        selectedHour: value.selectedHour!
+      }
+
+      this._store.dispatch(saveDate({ date }));
     });
   }
 }

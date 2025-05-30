@@ -10,6 +10,7 @@
           id="allergy-yes"
           [value]="true"
           formControlName="allergy"
+          class="accent-black"
         >
         <label for="allergy-yes" class="ms-2">Tak</label>
       </div>
@@ -22,7 +23,7 @@
             name="allergy-ingredients"
             autocomplete="off"
             formControlName="allergyIngredients"
-            class="border rounded-md px-2 py-1 w-full bg-[rgb(15,15,15)] text-white border-black outline-none"
+            class="border rounded-md px-2 py-1 w-full bg-transparent text-black border-black outline-none placeholder:text-gray-500"
           />
         </div>
       }
@@ -33,6 +34,7 @@
           id="allergy-no"
           [value]="false"
           formControlName="allergy"
+          class="accent-black"
         >
         <label for="allergy-no" class="ms-2">Nie</label>
       </div>
@@ -46,6 +48,7 @@
           id="skinChanges-yes"
           [value]="true"
           formControlName="skinChanges"
+          class="accent-black"
         >
         <label for="skinChanges-yes" class="ms-2">Tak</label>
       </div>
@@ -56,6 +59,7 @@
           id="skinChanges-no"
           [value]="false"
           formControlName="skinChanges"
+          class="accent-black"
         >
         <label for="skinChanges-no" class="ms-2">Nie</label>
       </div>
@@ -69,6 +73,7 @@
           id="lenses-yes"
           [value]="true"
           formControlName="lenses"
+          class="accent-black"
         >
         <label for="lenses-yes" class="ms-2">Tak</label>
       </div>
@@ -79,6 +84,7 @@
           id="lenses-no"
           [value]="false"
           formControlName="lenses"
+          class="accent-black"
         >
         <label for="lenses-no" class="ms-2">Nie</label>
       </div>

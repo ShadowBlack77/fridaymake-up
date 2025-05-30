@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, computed, contentChildren, effect, OnDestroy, output, OutputEmitterRef, Signal, signal, WritableSignal } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, Component, computed, contentChildren, effect, OnDestroy, output, OutputEmitterRef, Signal, signal, WritableSignal } from "@angular/core";
 import { StepComponent } from "../step/step.component";
 import { Subject } from "rxjs";
 import { CommonModule } from "@angular/common";
@@ -23,8 +23,14 @@ export class StepperComponent implements AfterContentInit, OnDestroy {
     return this._steps()[this.currentStep()].isValid();
   });
 
+  readonly isAlreadySaved: WritableSignal<boolean> = signal(false);
+
   constructor() {
     effect(() => {
+      if (this.isAlreadySaved()) {
+        this.currentStep.set(this.stepsCount() - 1);
+      }
+
       this._steps().map((step) => {
         step.isActive.set(false);
       })
@@ -50,6 +56,7 @@ export class StepperComponent implements AfterContentInit, OnDestroy {
   }
 
   submit(): void {
+      this.currentStep.update((prev) => prev += 1);
     this.submitEmmiter.emit();
   }
 

@@ -1,33 +1,37 @@
 <div class="bg-[radial-gradient(circle_at_50%_50%,_#f7d3b5,_#ada687)] px-8 md:px-16 lg:px-32 xl:px-48 min-h-[70vh] py-16 flex flex-col justify-around items-center">
-  <h1 class="text-4xl text-center">Ankieta zapisu</h1>
+  @if (currentStep() + 1 !== stepsCount()) {
+    <h1 class="text-4xl text-center">Ankieta zapisu</h1>
+  }
 
   <div class="w-full md:w-1/2">
     <ng-content />
   </div>
 
-  <div class="flex justify-center">
-    <button 
-      (click)="prev()" 
-      [disabled]="currentStep() === 0"
-      class="text-xl" 
-      [ngClass]="{
-        'text-gray-500': currentStep() === 0
-      }"
-    >Wróć</button>
-    <p class="mx-4 text-lg italic">
-      {{ currentStep() + 1 }} / {{ stepsCount() }}
-    </p>
-    @if (currentStep() + 1 === stepsCount()) {
-      <button (click)="submit()" [disabled]="!isStepValid()">Wyślij</button>
-    } @else {
+  @if (currentStep() + 1 !== stepsCount()) {
+    <div class="flex justify-center">
       <button 
-        (click)="next()" 
-        [disabled]="!isStepValid()"
-        class="text-xl"
+        (click)="prev()" 
+        [disabled]="currentStep() === 0"
+        class="text-xl" 
         [ngClass]="{
-          'text-gray-500': !isStepValid()
+          'text-gray-500': currentStep() === 0
         }"
-      >Dalej</button>
-    }
-  </div>
+      >Wróć</button>
+      <p class="mx-4 text-lg italic">
+        {{ currentStep() + 1 }} / {{ stepsCount() - 1 }}
+      </p>
+      @if (currentStep() === stepsCount() - 2) {
+        <button (click)="submit()" [disabled]="!isStepValid()" class="text-xl">Wyślij</button>
+      } @else {
+        <button 
+          (click)="next()" 
+          [disabled]="!isStepValid()"
+          class="text-xl"
+          [ngClass]="{
+            'text-gray-500': !isStepValid()
+          }"
+        >Dalej</button>
+      }
+    </div>
+  }
 </div>

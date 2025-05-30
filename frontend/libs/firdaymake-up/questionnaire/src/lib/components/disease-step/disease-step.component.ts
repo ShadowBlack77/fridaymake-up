@@ -5,6 +5,8 @@ import { STEP_VALIDATION } from "@lib/core/tokens";
 import { selectSkinTypes, SkinTypes, SkinTypesState } from "@lib/fridaymake-up/informations";
 import { Store } from "@ngrx/store";
 import { debounceTime, Observable } from "rxjs";
+import { QuestionnaireState } from "../../store/reducer";
+import { saveDisease } from "../../store/actions";
 
 @Component({
   selector: 'lib-disease-step',
@@ -22,10 +24,10 @@ import { debounceTime, Observable } from "rxjs";
 })
 export class DiseaseStepComponent implements AfterContentInit {
  
-  private readonly _skinTypesStore: Store<SkinTypesState> = inject(Store);
+  private readonly _store: Store<SkinTypesState | QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
 
-  protected readonly skinTypes$: Observable<SkinTypes[]> = this._skinTypesStore.select(selectSkinTypes);
+  protected readonly skinTypes$: Observable<SkinTypes[]> = this._store.select(selectSkinTypes);
 
   readonly form = this._formBuilder.group({
     diseaseThree: new FormControl(false, {
@@ -58,7 +60,13 @@ export class DiseaseStepComponent implements AfterContentInit {
     this.form.valueChanges.pipe(
       debounceTime(100)
     ).subscribe((value) => {
-      console.log(value);
+      const disease = {
+        diseaseThree: value.diseaseThree!,
+        skinShiny: value.skinShiny!,
+        skinType: value.skinType!
+      }
+
+      this._store.dispatch(saveDisease({ disease }));
     });
   }
 }
