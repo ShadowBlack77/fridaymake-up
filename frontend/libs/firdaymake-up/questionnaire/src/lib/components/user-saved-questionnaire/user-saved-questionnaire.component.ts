@@ -1,8 +1,8 @@
 import { Component, inject } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { QuestionnaireState } from "../../store/reducer";
-import { Observable } from "rxjs";
-import { selectIsQuestionnaireAlreadySaved } from "../../store/selectors";
+import { map, Observable } from "rxjs";
+import { selectIsQuestionnaireAlreadySaved, selectQuestionnaire } from "../../store/selectors";
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 
@@ -19,4 +19,7 @@ export class UserSavedQuestionnaireComponent {
   private readonly _store: Store<QuestionnaireState> = inject(Store);
 
   protected readonly isQuestionnaireAlreadySaved$: Observable<boolean> = this._store.select(selectIsQuestionnaireAlreadySaved);
+  protected readonly loadedQuestionnaireId: Observable<string> = this._store.select(selectQuestionnaire).pipe(
+    map((questionnaire) => questionnaire?.id ?? '')
+  )
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
-import { BehaviorSubject, map, Observable, switchMap, take } from "rxjs";
+import { BehaviorSubject, map, Observable, switchMap, take, tap } from "rxjs";
 import { User } from "../models/user.model";
 import { Login } from "../models/login.model";
 import { ENVIRONMENTS_TOKEN, EnvironmentsConfig } from "@lib/core/environments";
@@ -56,7 +56,11 @@ export class AuthService {
   }
 
   logout() {
-
+    return this._httpClient.post(`${this._env.apiUrl}/auth/logout`, {}, { withCredentials: true }).pipe(
+      tap(() => {
+        this.user$.next(null);
+      })
+    );
   }
 
   resetPassword(email: string): Observable<unknown> {
@@ -64,16 +68,10 @@ export class AuthService {
   }
 
   profile(): Observable<User> {
-    const user: BehaviorSubject<User> = new BehaviorSubject<User>({
-      email: 'a@a.com',
-      username: 'shadowblack',
-      role: 'user'
-    });
-
-    return user;
+    return this._httpClient.get<User>(`${this._env.apiUrl}/auth/profile`, { withCredentials: true });
   }
 
-  refreshToken() {
-
+  refreshToken(): Observable<unknown> {
+    return this._httpClient.post<unknown>(`${this._env.apiUrl}/auth/refresh`, {}, { withCredentials: true });
   }
 }

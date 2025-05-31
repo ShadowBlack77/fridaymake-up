@@ -14,11 +14,14 @@ const InitialState: QuestionnaireState = {
 
 export const questionnaireReducer = createReducer(
   InitialState,
-  on(questionnaireActions.loadQuestionnaireByUserIdSuccess, (state, actions) => ({
-    ...state,
-    questionnaire: actions.questionnaire,
-    isAlreadySaved: actions.questionnaire ? true : false
-  })),
+  on(questionnaireActions.loadQuestionnaireByUserIdSuccess, (state, actions) => {
+
+    return {
+      ...state,
+      questionnaire: actions.questionnaire,
+      isAlreadySaved: actions.questionnaire ? true : false
+    }
+  }),
   on(questionnaireActions.saveContactDetails, (state, actions) => ({
     ...state,
     questionnaire: { ...state.questionnaire!, ...actions.contactDetails }

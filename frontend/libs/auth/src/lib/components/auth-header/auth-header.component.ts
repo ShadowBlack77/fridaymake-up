@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
-import { Observable } from "rxjs";
+import { Observable, take } from "rxjs";
 import { User } from "../../models/user.model";
 
 @Component({
@@ -18,4 +18,10 @@ export class AuthHeaderComponent {
   private readonly _authService: AuthService = inject(AuthService);
 
   protected readonly user$: Observable<User | null> = this._authService.user$;
+
+  logout(): void {
+    this._authService.logout().pipe(
+      take(1)
+    ).subscribe();
+  }
 }

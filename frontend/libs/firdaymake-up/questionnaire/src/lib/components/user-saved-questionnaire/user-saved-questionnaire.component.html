@@ -1,8 +1,8 @@
 <div>
   <h2 class="text-xl mb-4">Status ankiety użytkownika</h2>
-  @if (isQuestionnaireAlreadySaved$ | async) {
+  @if ((isQuestionnaireAlreadySaved$ | async) && (loadedQuestionnaireId | async); as questionnaireId) {
     <p class="mb-2">Otrzymaliśmy Twoją ankietę! Odezwiemy się w niedługim czasie.</p>
-    <a routerLink="/questionnaire/" class="border border-black rounded-md px-4 py-1 hover:bg-black  hover:text-white transition-all ease-in-out">Tutaj możesz podejrzeć/zmodyfikować ankietę!</a>
+    <a routerLink="/questionnaire/update/{{ questionnaireId }}" class="border border-black rounded-md px-4 py-1 hover:bg-black  hover:text-white transition-all ease-in-out">Tutaj możesz podejrzeć/zmodyfikować ankietę!</a>
   } @else {
     <p class="font-semibold">Aktualnie nie masz żadnej zapisanej ankiety!</p>
   }

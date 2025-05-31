@@ -4,10 +4,14 @@ import { SkinTypesResolver } from '@lib/fridaymake-up/informations';
 import { PortfolioResolver } from '@lib/fridaymake-up/portfolio';
 import { PriceListResolver } from '@lib/fridaymake-up/price-list';
 import { CertificatesResolver } from '../../libs/firdaymake-up/certificates/src/lib/resolver/certificates.resolver';
+import { QuestionnaireResolver } from '@lib/fridaymake-up/questionnaire';
 
 export const routes: Routes = [
   {
     path: '',
+    resolve: [
+      QuestionnaireResolver
+    ],
     loadComponent: () => import('@lib/fridaymake-up/layouts').then((c) => c.RootLayoutComponent),
     children: [
       {
@@ -54,8 +58,17 @@ export const routes: Routes = [
           PriceListResolver,
           SkinTypesResolver
         ],
-        loadComponent: () => import('./pages/questionnaire/questionnaire-form/questionnaire-form-page.component').then((c) => c.QuestionnaireFormPageComponent)
-      }
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./pages/questionnaire/questionnaire-form/questionnaire-form-page.component').then((c) => c.QuestionnaireFormPageComponent)
+          },
+          {
+            path: 'update/:questionnaireId',
+            loadComponent: () => import('./pages/questionnaire/selected-questionnaire/selected-questionnaire-page.component').then((c) => c.SelectedQuestionnairePageComponent)
+          }
+        ]
+      },
     ]
   },
   {

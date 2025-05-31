@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 import { Questionnaire } from "../models/questionnaire.model";
+import { ENVIRONMENTS_TOKEN, EnvironmentsConfig } from "@lib/core/environments";
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,17 @@ import { Questionnaire } from "../models/questionnaire.model";
 export class QuestionnaireService {
 
   private readonly _httpClient: HttpClient = inject(HttpClient);
+  private readonly _env: EnvironmentsConfig = inject(ENVIRONMENTS_TOKEN);
 
   getOneByUserId(): Observable<Questionnaire | null> {
-    return of(null);
+    return this._httpClient.get<Questionnaire | null>(`${this._env.apiUrl}/questionnaire`, { withCredentials: true });
   }
 
   save(questionnaire: Questionnaire): Observable<unknown> {
-    console.log(questionnaire);
-    return of(true);
+    return this._httpClient.post(`${this._env.apiUrl}/questionnaire`, questionnaire, { withCredentials: true });
+  }
+
+  update(questionnaire: Questionnaire, questionnaireId: string) {
+
   }
 }

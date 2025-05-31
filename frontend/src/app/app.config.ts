@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
@@ -21,7 +21,7 @@ import { CertificatesEffects } from '../../libs/firdaymake-up/certificates/src/l
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes), 
+    provideRouter(routes, withComponentInputBinding()), 
     provideHttpClient(withInterceptorsFromDi()),
     provideCloudinaryLoader('https://res.cloudinary.com/dfv7maike'),
     provideAnimationsAsync(),
