@@ -1,6 +1,8 @@
-<header class="flex justify-between items-center bg-black py-4 px-8 md:px-16 lg:px-32 xl:px-48">
+<header class="flex justify-between items-center bg-black sticky top-0 z-40 left-0 py-4 px-8 md:px-16 lg:px-32 xl:px-48">
   <div>
-    <h1 class="text-white text-2xl">Friday Make-up</h1>
+    <a routerLink="/">
+      <h1 class="text-white text-2xl">Friday Make-up</h1>
+    </a>
   </div>
   <div class="flex items-center">
     <button (click)="menuBtn()" class="relative z-20">
@@ -19,7 +21,7 @@
 </header>
 
 <div 
-  class="h-screen backdrop-blur-sm bg-[rgba(0,0,0,0.8)] top-0 left-0 bottom-0 z-10 fixed duration-300 ease-in-out w-[320px] block py-16"
+  class="h-screen backdrop-blur-sm bg-[rgba(0,0,0,0.8)] top-0 left-0 bottom-0 fixed duration-300 ease-in-out w-[320px] block py-16 z-50"
   [ngClass]="{
     '-translate-x-[100vw]': !showMenu(),
     '-translate-x-[0vw]': showMenu()

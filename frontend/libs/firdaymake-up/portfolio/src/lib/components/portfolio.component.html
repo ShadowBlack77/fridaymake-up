@@ -1,4 +1,4 @@
-<img 
+<!-- <img 
   ngSrc="q_auto,f_auto/v1739556975/zdj1_qazx0y.jpg" 
   width="600"
   height="800"
@@ -197,4 +197,17 @@
   priority
   class="w-full mb-4 rounded-md shadow-sm object-cover object-[center_top]" 
   alt="Portfolio Image"
->
+> -->
+
+@if (portfolio$ | async; as portfolioImgs) {
+  @for (portfolio of portfolioImgs; track portfolio.id) {
+    <img 
+      [ngSrc]="portfolio.imageUrl"
+      width="600"
+      height="800"
+      priority
+      class="w-full mb-4 rounded-md shadow-sm object-cover object-[center_top]" 
+      alt="Portfolio Image"
+    >
+  }
+}

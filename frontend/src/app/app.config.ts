@@ -13,6 +13,10 @@ import { SkinTypesEffects, skinTypesReducer } from '@lib/fridaymake-up/informati
 import { provideCloudinaryLoader } from '@angular/common';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { QuestionnaireEffects, questionnaireReducer } from '@lib/fridaymake-up/questionnaire';
+import { portfolioReducer } from '../../libs/firdaymake-up/portfolio/src/lib/store/reducer';
+import { PortfolioEffects } from '../../libs/firdaymake-up/portfolio/src/lib/store/effects';
+import { certificatesReducer } from '../../libs/firdaymake-up/certificates/src/lib/store/reducer';
+import { CertificatesEffects } from '../../libs/firdaymake-up/certificates/src/lib/store/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,12 +28,16 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       priceList: priceListReducer,
       skinTypes: skinTypesReducer,
-      questionnaire: questionnaireReducer
+      questionnaire: questionnaireReducer,
+      portfolio: portfolioReducer,
+      certificates: certificatesReducer
     }), 
     provideEffects([
       PriceListEffects,
       SkinTypesEffects,
-      QuestionnaireEffects
+      QuestionnaireEffects,
+      PortfolioEffects,
+      CertificatesEffects
     ]),
     {
       provide: ENVIRONMENTS_TOKEN,

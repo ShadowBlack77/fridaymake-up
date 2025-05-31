@@ -1,3 +1,7 @@
 <div>
-  <h2>Account Information</h2>
+  <h2 class="text-xl mb-4">Dane użytkownika</h2>
+  @if (user$ | async; as user) {
+    <p>Nazwa użytkownia: <span class="italic">{{ user.username }}</span></p>
+    <p>Email: <span class="italic">{{ user.email }}</span></p>
+  }
 </div>

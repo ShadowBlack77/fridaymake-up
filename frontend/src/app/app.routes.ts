@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 import { AuthGuard, ProtectGuard } from '@lib/auth';
 import { SkinTypesResolver } from '@lib/fridaymake-up/informations';
+import { PortfolioResolver } from '@lib/fridaymake-up/portfolio';
 import { PriceListResolver } from '@lib/fridaymake-up/price-list';
+import { CertificatesResolver } from '../../libs/firdaymake-up/certificates/src/lib/resolver/certificates.resolver';
 
 export const routes: Routes = [
   {
@@ -19,10 +21,12 @@ export const routes: Routes = [
       },
       {
         path: 'portfolio',
+        resolve: [PortfolioResolver],
         loadComponent: () => import('./pages/portfolio/portfolio-page.component').then((c) => c.PortfolioPageComponent)
       },
       {
         path: 'certificates',
+        resolve: [CertificatesResolver],
         loadComponent: () => import('./pages/certificates/certificates-page.component').then((c) => c.CertificatesPageComponent)
       },
       {
