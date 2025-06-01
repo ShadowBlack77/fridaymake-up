@@ -1,10 +1,11 @@
-import { AfterContentChecked, AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, Component, inject, OnDestroy, output, OutputEmitterRef } from "@angular/core";
 import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
 import { Store } from "@ngrx/store";
-import { debounceTime } from "rxjs";
+import { debounceTime, Subject, takeUntil } from "rxjs";
 import { QuestionnaireState } from "../../store/reducer";
 import { saveIngredients } from "../../store/actions";
+import { selectUserQuestionnaire } from "../../store/selectors";
 
 @Component({
   selector: 'lib-ingredients-step',
@@ -19,10 +20,11 @@ import { saveIngredients } from "../../store/actions";
     ReactiveFormsModule
   ]
 })
-export class IngredientsStepComponent implements AfterContentInit, AfterContentChecked {
+export class IngredientsStepComponent implements AfterContentInit, AfterContentChecked, OnDestroy {
 
-  private readonly _questionnaireStore: Store<QuestionnaireState> = inject(Store);
+  private readonly _store: Store<QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
+  private readonly _destroy$: Subject<void> = new Subject<void>();
 
   readonly form = this._formBuilder.group({
     cosmeticIngredients: new FormControl(false, {
@@ -55,8 +57,24 @@ export class IngredientsStepComponent implements AfterContentInit, AfterContentC
       this.isValid.emit(status === 'VALID');
     });
 
+    this._store.select(selectUserQuestionnaire).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this.form.patchValue({
+            cosmeticIngredients: data.cosmeticsIngredients,
+            whichIngredients: data.whichIngredients,
+            diseaseOne: data.diseaseOne,
+            diseaseTwo: data.diseaseTwo
+          });
+        }
+      }
+    });
+
     this.form.valueChanges.pipe(
-      debounceTime(100)
+      debounceTime(100),
+      takeUntil(this._destroy$)
     ).subscribe((value) => {
       const ingredients = {
         cosmeticsIngredients: value.cosmeticIngredients!,
@@ -65,7 +83,7 @@ export class IngredientsStepComponent implements AfterContentInit, AfterContentC
         diseaseTwo: value.diseaseTwo!
       }
 
-      this._questionnaireStore.dispatch(saveIngredients({ ingredients }));
+      this._store.dispatch(saveIngredients({ ingredients }));
     });
   }
 
@@ -77,7 +95,12 @@ export class IngredientsStepComponent implements AfterContentInit, AfterContentC
       diseaseTwo: this.form.get('diseaseTwo')!.value!
     }
 
-    this._questionnaireStore.dispatch(saveIngredients({ ingredients }));
+    this._store.dispatch(saveIngredients({ ingredients }));
     this.isValid.emit(true);
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 }

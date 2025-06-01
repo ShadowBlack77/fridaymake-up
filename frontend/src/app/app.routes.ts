@@ -64,7 +64,7 @@ export const routes: Routes = [
             loadComponent: () => import('./pages/questionnaire/questionnaire-form/questionnaire-form-page.component').then((c) => c.QuestionnaireFormPageComponent)
           },
           {
-            path: 'update/:questionnaireId',
+            path: ':questionnaireId',
             loadComponent: () => import('./pages/questionnaire/selected-questionnaire/selected-questionnaire-page.component').then((c) => c.SelectedQuestionnairePageComponent)
           }
         ]

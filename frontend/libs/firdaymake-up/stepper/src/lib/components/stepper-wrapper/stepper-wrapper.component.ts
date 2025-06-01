@@ -1,5 +1,5 @@
-import { AfterContentInit, Component, contentChild, inject, OnDestroy } from "@angular/core";
-import { QuestionnaireState, saveQuestionnaire, selectIsQuestionnaireAlreadySaved, selectQuestionnaire } from "@lib/fridaymake-up/questionnaire";
+import { AfterContentInit, Component, contentChild, inject, input, InputSignal, OnDestroy } from "@angular/core";
+import { QuestionnaireState, saveQuestionnaire, selectIsQuestionnaireAlreadySaved, selectQuestionnaire, updateQuestionnaire } from "@lib/fridaymake-up/questionnaire";
 import { StepperComponent } from "@lib/shared/stepper";
 import { Store } from "@ngrx/store";
 import { Subject, take, takeUntil } from "rxjs";
@@ -13,6 +13,8 @@ export class StepperWrapperComponent implements AfterContentInit, OnDestroy {
   private readonly _questionnaireStore: Store<QuestionnaireState> = inject(Store);
   private readonly _stepper = contentChild(StepperComponent);
   private readonly _destroy$: Subject<void> = new Subject<void>();
+  
+  readonly questionnaireId: InputSignal<string | undefined> = input();
 
   ngAfterContentInit(): void {
     this._stepper()?.submitEmmiter.subscribe(() => {
@@ -20,7 +22,13 @@ export class StepperWrapperComponent implements AfterContentInit, OnDestroy {
         take(1)
       ).subscribe({
         next: (data) => {
-          this._questionnaireStore.dispatch(saveQuestionnaire({ questionnaire: data! }));
+          if (!this.questionnaireId()) {
+            this._questionnaireStore.dispatch(saveQuestionnaire({ questionnaire: data! }));
+
+            return;
+          } 
+
+          this._questionnaireStore.dispatch(updateQuestionnaire({ questionnaireId: this.questionnaireId()!, questionnaire: data! }));
         }
       })
     })
@@ -29,7 +37,7 @@ export class StepperWrapperComponent implements AfterContentInit, OnDestroy {
       takeUntil(this._destroy$)
     ).subscribe({
       next: (data) => {
-        this._stepper()?.isAlreadySaved.set(data);
+        this._stepper()?.isAlreadySaved.set(this.questionnaireId() ? false : data);
       }
     })
   }

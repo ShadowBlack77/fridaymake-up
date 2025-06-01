@@ -50,8 +50,8 @@ export class AuthController {
 
   @Public()
   @Post('/reset-password')
-  @HttpCode(HttpStatus.OK)
+  @HttpCode(HttpStatus.NO_CONTENT)
   async resetPassword(@Body() resetPasswordDto: { email: string }) {
-    
+    return await this._authService.resetPassword(resetPasswordDto);
   }
 }

@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { QuestionnaireService } from "../service/questionnaire.service";
-import { loadQuestionnaireByUserId, loadQuestionnaireByUserIdFailure, loadQuestionnaireByUserIdSuccess, saveContactDetails, saveContactDetailsSuccess, saveQuestionnaire, saveQuestionnaireFailure, saveQuestionnaireSuccess } from "./actions";
+import { loadQuestionnaire, loadQuestionnaireFailure, loadQuestionnaireSuccess, saveContactDetails, saveContactDetailsSuccess, saveQuestionnaire, saveQuestionnaireFailure, saveQuestionnaireSuccess, updateQuestionnaire, updateQuestionnaireFailure, updateQuestionnaireSuccess } from "./actions";
 import { catchError, map, of, switchMap } from "rxjs";
 
 @Injectable({
@@ -12,16 +12,16 @@ export class QuestionnaireEffects {
   private readonly _actions: Actions = inject(Actions);
   private readonly _questionnaireService = inject(QuestionnaireService);
 
-  loadQuestionnaireByUserId$ = createEffect(() => {
+  loadQuestionnaire$ = createEffect(() => {
     return this._actions.pipe(
-      ofType(loadQuestionnaireByUserId),
+      ofType(loadQuestionnaire),
       switchMap(() => {
         return this._questionnaireService.getOneByUserId().pipe(
           map((questionnaire) => {
-            return loadQuestionnaireByUserIdSuccess({ questionnaire });
+            return loadQuestionnaireSuccess({ questionnaire });
           }),
           catchError((error) => {
-            return of(loadQuestionnaireByUserIdFailure({ error }));
+            return of(loadQuestionnaireFailure({ error }));
           })
         )
       })
@@ -52,4 +52,20 @@ export class QuestionnaireEffects {
       })
     )
   });
+
+  updateQuestionniare$ = createEffect(() => {
+    return this._actions.pipe(
+      ofType(updateQuestionnaire),
+      switchMap(({ questionnaireId, questionnaire }) => {
+        return this._questionnaireService.update(questionnaireId, questionnaire).pipe(
+          map(() => {
+            return updateQuestionnaireSuccess();
+          }),
+          catchError((error) => {
+            return of(updateQuestionnaireFailure({ error }));
+          })
+        )
+      })
+    )
+  })
 }

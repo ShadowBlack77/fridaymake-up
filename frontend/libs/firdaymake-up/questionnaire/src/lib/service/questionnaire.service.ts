@@ -20,7 +20,7 @@ export class QuestionnaireService {
     return this._httpClient.post(`${this._env.apiUrl}/questionnaire`, questionnaire, { withCredentials: true });
   }
 
-  update(questionnaire: Questionnaire, questionnaireId: string) {
-
+  update(questionnaireId: string, questionnaire: Questionnaire): Observable<unknown> {
+    return this._httpClient.put<unknown>(`${this._env.apiUrl}/questionnaire/${questionnaireId}`, questionnaire, { withCredentials: true });
   }
 }

@@ -1,12 +1,13 @@
 import { CommonModule } from "@angular/common";
-import { AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, Component, inject, OnDestroy, output, OutputEmitterRef } from "@angular/core";
 import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
 import { PriceListState, selectPriceList } from "@lib/fridaymake-up/price-list";
 import { Store } from "@ngrx/store";
-import { debounceTime } from "rxjs";
+import { debounceTime, Subject, take, takeUntil } from "rxjs";
 import { QuestionnaireState } from "../../store/reducer";
 import { saveContactDetails } from "../../store/actions";
+import { selectQuestionnaire, selectUserQuestionnaire } from "../../store/selectors";
 
 @Component({
   selector: 'lib-contact-details-step',
@@ -22,10 +23,11 @@ import { saveContactDetails } from "../../store/actions";
     CommonModule
   ]
 })
-export class ContactDetailsStepComponent implements AfterContentInit {
+export class ContactDetailsStepComponent implements AfterContentInit, AfterContentChecked, OnDestroy {
 
   private readonly _store: Store<PriceListState | QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
+  private readonly _destroy$: Subject<void> = new Subject<void>();
 
   protected readonly services$ = this._store.select(selectPriceList);
 
@@ -64,8 +66,24 @@ export class ContactDetailsStepComponent implements AfterContentInit {
       this.isValid.emit(status === 'VALID');
     });
 
+    this._store.select(selectUserQuestionnaire).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this.form.patchValue({
+            name: data.name,
+            email: data.email,
+            phoneNumber: data.phoneNumber,
+            service: data.service
+          });
+        }
+      }
+    });
+
     this.form.valueChanges.pipe(
-      debounceTime(100)
+      debounceTime(100),
+      takeUntil(this._destroy$)
     ).subscribe((value) => {
       const contactDetails = {
         email: value.email!,
@@ -76,5 +94,16 @@ export class ContactDetailsStepComponent implements AfterContentInit {
       
       this._store.dispatch(saveContactDetails({ contactDetails }));
     });
+  }
+
+  ngAfterContentChecked(): void {
+    if (this.form.get('service')?.value) {
+      this.isValid.emit(true);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 }

@@ -1,10 +1,11 @@
-import { AfterContentChecked, AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, Component, inject, OnDestroy, output, OutputEmitterRef } from "@angular/core";
 import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
-import { debounceTime } from "rxjs";
+import { debounceTime, Subject, take, takeUntil } from "rxjs";
 import { QuestionnaireState } from "../../store/reducer";
 import { Store } from "@ngrx/store";
 import { savePores } from "../../store/actions";
+import { selectQuestionnaire, selectUserQuestionnaire } from "../../store/selectors";
 
 @Component({
   selector: 'lib-pores-step',
@@ -19,10 +20,11 @@ import { savePores } from "../../store/actions";
     ReactiveFormsModule
   ]
 })
-export class PoresStepComponent implements AfterContentInit, AfterContentChecked {
+export class PoresStepComponent implements AfterContentInit, AfterContentChecked, OnDestroy {
 
-  private readonly _questionnaireStore: Store<QuestionnaireState> = inject(Store);
+  private readonly _store: Store<QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
+  private readonly _destroy$: Subject<void> = new Subject<void>();
 
   readonly form = this._formBuilder.group({
     pores: new FormControl(false, {
@@ -52,8 +54,23 @@ export class PoresStepComponent implements AfterContentInit, AfterContentChecked
       this.isValid.emit(status === 'VALID');
     });
 
+    this._store.select(selectUserQuestionnaire).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this.form.patchValue({
+            pores: data.pores,
+            medicines: data.medicines,
+            skinDiseases: data.skinDiseases,
+          });
+        }
+      }
+    });
+
     this.form.valueChanges.pipe(
-      debounceTime(100)
+      debounceTime(100),
+      takeUntil(this._destroy$)
     ).subscribe((value) => {
       const pores = {
         pores: value.pores!,
@@ -61,7 +78,7 @@ export class PoresStepComponent implements AfterContentInit, AfterContentChecked
         skinDiseases: value.skinDiseases!
       }
 
-      this._questionnaireStore.dispatch(savePores({ pores }));
+      this._store.dispatch(savePores({ pores }));
     });
   }
 
@@ -72,7 +89,12 @@ export class PoresStepComponent implements AfterContentInit, AfterContentChecked
       skinDiseases: this.form.get('skinDiseases')!.value!
     }
 
-    this._questionnaireStore.dispatch(savePores({ pores }));
+    this._store.dispatch(savePores({ pores }));
     this.isValid.emit(true);
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 }

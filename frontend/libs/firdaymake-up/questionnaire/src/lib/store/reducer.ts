@@ -5,20 +5,22 @@ import * as questionnaireActions from './actions';
 export interface QuestionnaireState {
   readonly questionnaire: Questionnaire | null;
   readonly isAlreadySaved: boolean;
+  readonly userQuestionnaire: Questionnaire | null;
 }
 
 const InitialState: QuestionnaireState = {
   questionnaire: null,
-  isAlreadySaved: false
+  isAlreadySaved: false,
+  userQuestionnaire: null
 }
 
 export const questionnaireReducer = createReducer(
   InitialState,
-  on(questionnaireActions.loadQuestionnaireByUserIdSuccess, (state, actions) => {
+  on(questionnaireActions.loadQuestionnaireSuccess, (state, actions) => {
 
     return {
       ...state,
-      questionnaire: actions.questionnaire,
+      userQuestionnaire: actions.questionnaire,
       isAlreadySaved: actions.questionnaire ? true : false
     }
   }),

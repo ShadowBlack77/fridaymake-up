@@ -1,10 +1,11 @@
-import { AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, Component, inject, OnDestroy, output, OutputEmitterRef } from "@angular/core";
 import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
 import { Store } from "@ngrx/store";
-import { debounceTime } from "rxjs";
+import { debounceTime, Subject, takeUntil } from "rxjs";
 import { QuestionnaireState } from "../../store/reducer";
 import { saveDate } from "../../store/actions";
+import { selectUserQuestionnaire } from "../../store/selectors";
 
 @Component({
   selector: 'lib-date-step',
@@ -19,10 +20,11 @@ import { saveDate } from "../../store/actions";
     ReactiveFormsModule
   ]
 })
-export class DateStepComponent implements AfterContentInit {
+export class DateStepComponent implements AfterContentInit, AfterContentChecked, OnDestroy {
 
   private readonly _store: Store<QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
+  private readonly _destroy$: Subject<void> = new Subject<void>();
 
   readonly form = this._formBuilder.group({
     selectedDate: new FormControl(new Date(), {
@@ -46,8 +48,22 @@ export class DateStepComponent implements AfterContentInit {
       this.isValid.emit(status === 'VALID');
     });
 
+    this._store.select(selectUserQuestionnaire).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this.form.patchValue({
+            selectedDate: data.selectedDate,
+            selectedHour: data.selectedHour
+          });
+        }
+      }
+    });
+
     this.form.valueChanges.pipe(
-      debounceTime(100)
+      debounceTime(100),
+      takeUntil(this._destroy$)
     ).subscribe((value) => {
       const date = {
         selectedDate: value.selectedDate!,
@@ -56,5 +72,16 @@ export class DateStepComponent implements AfterContentInit {
 
       this._store.dispatch(saveDate({ date }));
     });
+  }
+
+  ngAfterContentChecked(): void {
+    if (this.form.get('selectedHour')?.value) {
+      this.isValid.emit(true);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 }

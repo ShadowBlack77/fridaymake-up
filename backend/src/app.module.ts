@@ -8,6 +8,7 @@ import { AuthModule } from './app/auth/auth.module';
 import { join } from 'path';
 import { FirebaseModule } from 'nestjs-firebase';
 import { QuestionnaireModule } from './app/questionnaire/questionnaire.module';
+import { MailModule } from './app/mail/mail.module';
 
 @Module({
   imports: [
@@ -19,11 +20,12 @@ import { QuestionnaireModule } from './app/questionnaire/questionnaire.module';
       googleApplicationCredential: join(__dirname, `/assets/secrets/${process.env.FIREBASE_CONFIG_FILE}`)
     }),
     AuthModule,
+    MailModule,
     PortfolioModule,
     CertificatesModule,
     InformationsModule,
     PriceListModule,
-    QuestionnaireModule
+    QuestionnaireModule,
   ],
 })
 export class AppModule {}

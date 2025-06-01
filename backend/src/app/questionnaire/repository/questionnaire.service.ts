@@ -43,9 +43,11 @@ export class QuestionnaireService {
     }
   }
 
-  async update(userId: string, updtQuestionnaireDto: any) {
+  async update(questionnaireId: string, updtQuestionnaireDto: any) {
     try {
-      
+      const docRef = this._firebase.firestore.collection('questionnaires').doc(questionnaireId);
+
+      await docRef.update(updtQuestionnaireDto);
     } catch (error) {
       throw new InternalServerErrorException(error);
     }

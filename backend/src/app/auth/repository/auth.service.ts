@@ -89,8 +89,10 @@ export class AuthService {
     return decodedToken;
   }
 
-  async resetPassword() {
+  async resetPassword(resetPasswordDto: { email: string }) {
+    console.log(resetPasswordDto);
 
+    return;
   }
 
   private async setAccessTokenCookie(res: Response, accessToken: string): Promise<void> {

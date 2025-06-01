@@ -64,7 +64,7 @@ export class AuthService {
   }
 
   resetPassword(email: string): Observable<unknown> {
-    return this._httpClient.post(`${this._env.apiUrl}/auth/reset-password`, { email });
+    return this._httpClient.post(`${this._env.apiUrl}/auth/reset-password`, email);
   }
 
   profile(): Observable<User> {

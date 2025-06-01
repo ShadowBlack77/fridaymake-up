@@ -10,7 +10,6 @@ export class FirebaseUtils {
 
   async signInWithEmailAndPassword(loginDto: Login): Promise<Tokens> {
     try {
-      console.log(process.env.FIREBASE_API_KEY);
       const response = await axios.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.FIREBASE_API_KEY}`, {
         email: loginDto.email,
         password: loginDto.password,
@@ -21,7 +20,6 @@ export class FirebaseUtils {
 
       return { accessToken: data.idToken, refreshToken: data.refreshToken };
     } catch (error) {
-      console.log(error);
       throw new Error(error);
     }
   }

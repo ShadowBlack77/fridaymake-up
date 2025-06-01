@@ -1,10 +1,11 @@
-import { AfterContentChecked, AfterContentInit, Component, inject, output, OutputEmitterRef } from "@angular/core";
+import { AfterContentChecked, AfterContentInit, Component, inject, OnDestroy, output, OutputEmitterRef } from "@angular/core";
 import { FormBuilder, FormControl, FormControlStatus, ReactiveFormsModule, Validators } from "@angular/forms";
 import { STEP_VALIDATION } from "@lib/core/tokens";
 import { Store } from "@ngrx/store";
-import { debounceTime } from "rxjs";
+import { debounceTime, Subject, takeUntil } from "rxjs";
 import { QuestionnaireState } from "../../store/reducer";
 import { saveUseAppearance } from "../../store/actions";
+import { selectUserQuestionnaire } from "../../store/selectors";
 
 @Component({
   selector: 'lib-use-appearance-step',
@@ -19,10 +20,11 @@ import { saveUseAppearance } from "../../store/actions";
     ReactiveFormsModule
   ]
 })
-export class UseAppearanceStepComponent implements AfterContentInit, AfterContentChecked {
+export class UseAppearanceStepComponent implements AfterContentInit, AfterContentChecked, OnDestroy {
 
   private readonly _store: Store<QuestionnaireState> = inject(Store);
   private readonly _formBuilder = inject(FormBuilder);
+  private readonly _destroy$: Subject<void> = new Subject<void>();
 
   readonly form = this._formBuilder.group({
     useAppearance: new FormControl(false, {
@@ -40,8 +42,21 @@ export class UseAppearanceStepComponent implements AfterContentInit, AfterConten
       this.isValid.emit(status === 'VALID');
     });
 
+    this._store.select(selectUserQuestionnaire).pipe(
+      takeUntil(this._destroy$)
+    ).subscribe({
+      next: (data) => {
+        if (data) {
+          this.form.patchValue({
+            useAppearance: data.useAppearance
+          });
+        }
+      }
+    });
+
     this.form.valueChanges.pipe(
-      debounceTime(100)
+      debounceTime(100),
+      takeUntil(this._destroy$)
     ).subscribe((value) => {
       const useAppearance = {
         useAppearance: value.useAppearance!
@@ -58,5 +73,10 @@ export class UseAppearanceStepComponent implements AfterContentInit, AfterConten
 
     this._store.dispatch(saveUseAppearance({ useAppearance }));
     this.isValid.emit(true);
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 }

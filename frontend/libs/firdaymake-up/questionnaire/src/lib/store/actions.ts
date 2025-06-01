@@ -1,12 +1,12 @@
 import { createAction, props } from "@ngrx/store";
 import { Questionnaire } from "../models/questionnaire.model";
 
-export const loadQuestionnaireByUserId = createAction('[QUESTIONNAIRE] Load Questionnaire By User Id');
-export const loadQuestionnaireByUserIdSuccess = createAction(
+export const loadQuestionnaire = createAction('[QUESTIONNAIRE] Load Questionnaire By User Id');
+export const loadQuestionnaireSuccess = createAction(
   '[QUESTIONNAIRE] Load Questionnaire By User Id Success', 
   props<{ questionnaire: Questionnaire | null }>()
 );
-export const loadQuestionnaireByUserIdFailure = createAction(
+export const loadQuestionnaireFailure = createAction(
   '[QUESTIONNAIRE] Load Questionnaire By User Id Failure', 
   props<{ error: any }>()
 );
@@ -163,3 +163,13 @@ export const saveQuestionnaireFailure = createAction(
   '[QUESTIONNAIRE] Save Questionnaire Faliure', 
   props<{ error: any }>()
 );
+
+export const updateQuestionnaire = createAction(
+  '[QUESTIONNAIRE] Update Questionnaire',
+  props<{ questionnaireId: string, questionnaire: Questionnaire }>()
+);
+export const updateQuestionnaireSuccess = createAction('[QUESTIONNAIRE] Update Questionnaire Success');
+export const updateQuestionnaireFailure = createAction(
+  '[QUESTIONNAIRE] Update Questionnaire Failure',
+  props<{ error: any }>()
+)

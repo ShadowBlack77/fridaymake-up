@@ -10,3 +10,7 @@ export const selectQuestionnaire = createSelector(questionnaireFeatureSelector, 
 export const selectIsQuestionnaireAlreadySaved = createSelector(questionnaireFeatureSelector, (state: QuestionnaireState) => {
   return state.isAlreadySaved
 });
+
+export const selectUserQuestionnaire = createSelector(questionnaireFeatureSelector, (state: QuestionnaireState) => {
+  return state.userQuestionnaire
+});

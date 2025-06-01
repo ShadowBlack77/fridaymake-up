@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Put, Res } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, Res } from "@nestjs/common";
 import { QuestionnaireService } from "../repository/questionnaire.service";
 import { Response } from "express";
 import { getUserIdOrThrow } from "src/app/core/http/validation";
@@ -26,11 +26,9 @@ export class QuestionnaireController {
     return await this._questionnaireService.create(userId, questionnaireDto);
   }
 
-  @Put('')
-  @HttpCode(HttpStatus.OK)
-  async update(@Res({ passthrough: true }) res: Response, @Body() updtQuestionnaireDto: any) {
-    const userId = getUserIdOrThrow(res);
-
-    return await this._questionnaireService.update(userId, updtQuestionnaireDto);
+  @Put('/:questionnaireId')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async update(@Body() updtQuestionnaireDto: any, @Param('questionnaireId') questionnaireId: string) {
+    return await this._questionnaireService.update(questionnaireId, updtQuestionnaireDto);
   }
 }
