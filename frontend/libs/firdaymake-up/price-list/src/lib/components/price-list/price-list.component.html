@@ -4,14 +4,14 @@
       <div class="bg-black rounded-md text-white border border-black">
         <img 
           [ngSrc]="offer.imageUrl"
-          width="400"
-          height="200"
+          width="600"
+          height="700"
           priority
           alt="offer-image"
-          class="w-full rounded-md"
+          class="rounded-md w-full object-cover object-top h-[500px]"
         />
         <div class="p-4">
-          <h2 class="text-xl mb-4">{{ offer.name }} - <strong>{{ offer.price | currency }}</strong></h2>
+          <h2 class="text-xl mb-4">{{ offer.name }} - <strong>{{ offer.price }} PLN</strong></h2>
           <p class="text-justify">{{ offer.description }}</p>
         </div>
       </div>

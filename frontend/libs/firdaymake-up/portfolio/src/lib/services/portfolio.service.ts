@@ -13,6 +13,7 @@ export class PortfolioService {
   private readonly _env: EnvironmentsConfig = inject(ENVIRONMENTS_TOKEN);
   
   getAll(): Observable<Portfolio[]> {
+    console.log(`${this._env.apiUrl}/portfolio`);
     return this._httpClient.get<Portfolio[]>(`${this._env.apiUrl}/portfolio`);
   }
 }

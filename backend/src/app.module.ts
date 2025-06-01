@@ -9,6 +9,7 @@ import { join } from 'path';
 import { FirebaseModule } from 'nestjs-firebase';
 import { QuestionnaireModule } from './app/questionnaire/questionnaire.module';
 import { MailModule } from './app/mail/mail.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -18,6 +19,9 @@ import { MailModule } from './app/mail/mail.module';
     }),
     FirebaseModule.forRoot({
       googleApplicationCredential: join(__dirname, `/assets/secrets/${process.env.FIREBASE_CONFIG_FILE}`)
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../fridaymake-up/frontend/browser')
     }),
     AuthModule,
     MailModule,

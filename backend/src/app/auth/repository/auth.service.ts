@@ -5,13 +5,15 @@ import { FirebaseAdmin, InjectFirebaseAdmin } from "nestjs-firebase";
 import { FIREBASE_UTILS, FirebaseUtils } from "src/app/firebase/utils/firebase.utils";
 import { DecodedIdToken } from "firebase-admin/lib/auth/token-verifier";
 import { Register } from "../domain/register.model";
+import { MailService } from "src/app/mail/repository/mail.service";
 
 @Injectable()
 export class AuthService {
 
   constructor(
     @InjectFirebaseAdmin() private readonly _firebase: FirebaseAdmin,
-    @Inject(FIREBASE_UTILS) private readonly _firebaseUtils: FirebaseUtils
+    @Inject(FIREBASE_UTILS) private readonly _firebaseUtils: FirebaseUtils,
+    private readonly _mailService: MailService
   ) {}
 
   async login(res: Response, loginDto: Login) {
@@ -90,7 +92,11 @@ export class AuthService {
   }
 
   async resetPassword(resetPasswordDto: { email: string }) {
-    console.log(resetPasswordDto);
+    const { email } = resetPasswordDto;
+
+    const resetLink = await this._firebase.auth.generatePasswordResetLink(email);
+
+    this._mailService.sendMail(email, 'Resetowanie hasła', 'reset-password', { link: resetLink });
 
     return;
   }

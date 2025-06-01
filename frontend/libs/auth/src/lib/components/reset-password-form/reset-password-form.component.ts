@@ -21,6 +21,7 @@ export class ResetPasswordFormComponent {
   private readonly _authService: AuthService = inject(AuthService);
 
   protected readonly resetPasswordError: WritableSignal<string> = signal('');
+  protected readonly resetPasswordInfo: WritableSignal<string> = signal('');
   protected readonly isSubmitted: WritableSignal<boolean> = signal(false);
 
   protected readonly resetPasswordForm: FormGroup = this._fromBuilder.group({
@@ -36,6 +37,7 @@ export class ResetPasswordFormComponent {
   submitted(): void {
     if (this.resetPasswordForm.valid) {
       this.resetPasswordError.set('');
+      this.resetPasswordInfo.set('');
       this.isSubmitted.set(true);
 
       this._authService.resetPassword(this.resetPasswordForm.getRawValue()).pipe(
@@ -43,6 +45,7 @@ export class ResetPasswordFormComponent {
       ).subscribe({
         next: () => {
           this.isSubmitted.set(false);
+          this.resetPasswordInfo.set('Wiadomośc wysłana! Sprawdź swoją skrzynkę email');
           this.resetPasswordForm.reset();
         },
         error: (error: HttpErrorResponse) => {

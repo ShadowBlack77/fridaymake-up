@@ -10,6 +10,7 @@ export * from './lib/components/account-informations/account-informations.compon
 export * from './lib/services/auth.service';
 
 // INTERCEPTORS
+export * from './lib/interceptors/api-key.interceptor';
 export * from './lib/interceptors/refresh.interceptor';
 
 // GUARDS

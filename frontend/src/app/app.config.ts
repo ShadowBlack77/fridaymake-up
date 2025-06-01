@@ -7,7 +7,7 @@ import { provideEffects } from '@ngrx/effects';
 import { ENVIRONMENTS_TOKEN } from '@lib/core/environments';
 import { Environments } from '../environments/environments';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { AuthService, RefreshInterceptors } from '@lib/auth';
+import { ApiKeyInterceptors, AuthService, RefreshInterceptors } from '@lib/auth';
 import { PriceListEffects, priceListReducer } from '@lib/fridaymake-up/price-list';
 import { SkinTypesEffects, skinTypesReducer } from '@lib/fridaymake-up/informations';
 import { provideCloudinaryLoader } from '@angular/common';
@@ -53,6 +53,11 @@ export const appConfig: ApplicationConfig = {
       },
       multi: true,
       deps: [AuthService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiKeyInterceptors,
+      multi: true
     },
     {
       provide: HTTP_INTERCEPTORS,

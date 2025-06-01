@@ -16,13 +16,19 @@ Responsive portfolio created with Angular and Bootstrap. Contains information ab
 
 ## 🎯 Features
 
-- ✅ Home page with my profile
-- ✅ List of projects with description and links to GitHub
-- ✅ "Skills" section in the form of icons and a short description
+- ✅ Home page with description
+- ✅ Advanced Authorization & Authentication (JWT with Refresh Token passed by cookies)
+- ✅ Gallery of portfolio and certificates images
+- ✅ Possibility to reset password (Mailing System)
 - ✅ Responsive design
+- ✅ API Secure
+- ✅ Use store tools on frontend (NgRX)
+- ✅ Docker
+- ✅ Cloudinary
+- ✅ Advanced architecture of appliaction (Frontend and Backend)
 
 ## 🌐 Demo
-- 🔗 [https://shadowblack77.netlify.app/](https://shadowblack77.netlify.app/)
+- 🔗 [https://fridaymake-up.onrender.com/](https://fridaymake-up.onrender.com/)
 
 ## 🧠 Author
 - Daniel Miliczek
@@ -30,9 +36,10 @@ Responsive portfolio created with Angular and Bootstrap. Contains information ab
 
 ## 📸 Screenshots
 
-![Home](./assets/screenshots/about.png)
-![Experience](./assets/screenshots/experience.png)
-![Projekty](./assets/screenshots/projects.png)
+![Home](./assets/screenshots/homepage.png)
+![Experience](./assets/screenshots/services.png)
+![Projekty](./assets/screenshots/portfolio.png)
+![Login](./assets/screenshots/loginpage.png)
 
 ## 🚀 Run locally
 
