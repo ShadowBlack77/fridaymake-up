@@ -41,9 +41,3 @@ Responsive portfolio created with Angular and Bootstrap. Contains information ab
 ![Projekty](./assets/screenshots/portfolio.png)
 ![Login](./assets/screenshots/loginpage.png)
 
-## 🚀 Run locally
-
-```bash
-gh repo clone ShadowBlack77/portfolio
-npm install
-ng serve
