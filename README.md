@@ -37,7 +37,7 @@ Responsive portfolio created with Angular and Bootstrap. Contains information ab
 ## 📸 Screenshots
 
 ![Home](./assets/screenshots/homepage.png)
-![Experience](./assets/screenshots/services.png)
-![Projekty](./assets/screenshots/portfolio.png)
+![Services](./assets/screenshots/services.png)
+![Portfolio](./assets/screenshots/portfolio.png)
 ![Login](./assets/screenshots/loginpage.png)
 
