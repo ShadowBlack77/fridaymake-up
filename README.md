@@ -1,6 +1,6 @@
 # 💻 Fridaymake-up
 
-Responsive portfolio created with Angular and Bootstrap. Contains information about my skills, experience, projects and the possibility of contacting me.
+A web application that allows make-up clients to sign up for a contact list.
 
 ## 🛠️ Technologies
 
